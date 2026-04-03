@@ -1,5 +1,5 @@
 [project]
-name = "fastapi-tests"
+name = "advantageous_view"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -11,6 +11,7 @@ dependencies = [
     "pydantic-settings>=2.13.1",
     "ruff>=0.15.4",
     "sqlalchemy>=2.0.47",
+    "uvicorn>=0.42.0",
 ]
 
 [tool.ruff]
@@ -53,6 +54,7 @@ ignore = [
 ]
 fixable = [
     "I",
+    "W293"
 ]
 
 [tool.ruff.lint.flake8-quotes]
@@ -72,5 +74,6 @@ line-ending = "auto"
 
 [tool.ruff.lint.per-file-ignores]
 "src/**/*.py" = ["B008"]
+"src/infrastructure/database/models/*.py" = ["F821"]
 "src/tests/**/*.py" = ["S101"]
-"src/tests/*.py" = ["S106", "S107"]
+"src/tests/*.py" = ["S105", "S106", "S107"]
