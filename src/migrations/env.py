@@ -7,6 +7,7 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from infrastructure.database.database import Base
+from infrastructure.database.models.users import UserModel
 from settings import settings
 
 
