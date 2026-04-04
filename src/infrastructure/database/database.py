@@ -36,5 +36,6 @@ class Base(AsyncAttrs, DeclarativeBase):
     updated_at: Mapped[datetime] = mapped_column(
         PGDateTime(timezone=True),
         nullable=False,
+        server_default=func.now(),
         server_onupdate=func.now(),
     )
