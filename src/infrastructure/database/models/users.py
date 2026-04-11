@@ -9,6 +9,7 @@ class UserModel(Base):
 
     email: Mapped[str] = mapped_column(
         String,
+        unique=True,
     )
 
     password: Mapped[str] = mapped_column(

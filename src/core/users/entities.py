@@ -22,7 +22,7 @@ class UserModelDTO:
     updated_at: datetime
 
     @classmethod
-    def from_model(cls, user: UserModel) -> "UserModelDTO":
+    def from_model(cls, user: UserModel | None) -> "UserModelDTO":
         return cls(
             id=user.id,
             email=user.email,
@@ -30,7 +30,7 @@ class UserModelDTO:
             name=user.name,
             created_at=user.created_at,
             updated_at=user.updated_at,
-        )
+        ) if user else None
 
 
 @dataclass

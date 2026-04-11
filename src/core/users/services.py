@@ -1,6 +1,5 @@
 import asyncio
 from datetime import UTC, datetime, timedelta
-from uuid import UUID
 
 import bcrypt
 from jose import ExpiredSignatureError, JWTError, jwt
@@ -116,7 +115,7 @@ class UserService:
             timedelta(minutes=settings.security.access_ttl)
         )
 
-    def get_user_id_from_token_or_raise(self, token: str, token_type: str) -> UUID:
+    def get_user_id_from_token_or_raise(self, token: str, token_type: str) -> str:
         payload = self._verify_token(token, token_type)
         return payload.get("sub")
 

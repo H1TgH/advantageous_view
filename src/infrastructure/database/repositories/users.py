@@ -19,9 +19,13 @@ class UserRepository:
     async def get_by_email(self, email: str) -> UserModelDTO | None:
         stmt = select(UserModel).where(UserModel.email == email)
         result = await self.session.execute(stmt)
-        return result.scalar_one_or_none()
+        return UserModelDTO.from_model(
+            result.scalar_one_or_none()
+        )
 
     async def get_by_id(self, id: UUID) -> UserModelDTO | None:
         stmt = select(UserModel).where(UserModel.id == id)
         result = await self.session.execute(stmt)
-        return result.scalar_one_or_none()
+        return UserModelDTO.from_model(
+            result.scalar_one_or_none()
+        )
