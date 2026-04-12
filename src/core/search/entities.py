@@ -12,3 +12,4 @@ class ProductDTO:
     seller: str
     marketplace: str
     url: str
+    score: float | None = None

@@ -17,12 +17,20 @@ class ProductRanker:
         min_rating, max_rating = (min(ratings), max(ratings)) if ratings else (0, 1)
         min_feedbacks, max_feedbacks = (min(feedbacks), max(feedbacks)) if feedbacks else (0, 1)
 
-        scored = [
-            (product, self._score(product, prefs, min_price, max_price, min_rating, max_rating, min_feedbacks, max_feedbacks))  # noqa: E501
-            for product in products
-        ]
+        for product in products:
+            product.score = self._score(
+                product,
+                prefs,
+                min_price,
+                max_price,
+                min_rating,
+                max_rating,
+                min_feedbacks,
+                max_feedbacks,
+            )
 
-        return [product for product, _ in sorted(scored, key=lambda x: x[1], reverse=True)]
+        # 👇 сортируем уже по полю
+        return sorted(products, key=lambda p: p.score or 0, reverse=True)
 
     def _score(
         self,

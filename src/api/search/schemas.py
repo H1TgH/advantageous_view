@@ -11,3 +11,4 @@ class ProductSchema(BaseModel):
     seller: str
     marketplace: str
     url: str
+    score: float | None = None
