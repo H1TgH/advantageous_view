@@ -79,7 +79,7 @@ skip-magic-trailing-comma = false
 line-ending = "auto"
 
 [tool.ruff.lint.per-file-ignores]
-"src/**/*.py" = ["B008", "BLE001", "S311"]
+"src/**/*.py" = ["B008", "BLE001", "S311", "FURB118"]
 "src/infrastructure/database/models/*.py" = ["F821"]
 "src/tests/**/*.py" = ["S101"]
 "src/tests/*.py" = ["S105", "S106", "S107"]
