@@ -29,7 +29,6 @@ class ProductRanker:
                 max_feedbacks,
             )
 
-        # 👇 сортируем уже по полю
         return sorted(products, key=lambda p: p.score or 0, reverse=True)
 
     def _score(

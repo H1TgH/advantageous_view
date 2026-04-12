@@ -81,7 +81,7 @@ class WBClient:
             title=p.get("name", ""),
             brand=p.get("brand", ""),
             price=price,
-            rating=float(p.get("rating") or 0),
+            rating=float(p.get("reviewRating") or p.get("rating") or 0),
             feedbacks=int(p.get("feedbacks") or 0),
             seller=p.get("supplier", ""),
             marketplace="wb",
