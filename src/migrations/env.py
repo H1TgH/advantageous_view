@@ -12,6 +12,7 @@ from infrastructure.database.models.users import UserModel
 from infrastructure.database.models.preferences import UserPreferencesModel
 from infrastructure.database.models.favorites import FavoriteModel
 from infrastructure.database.models.price_tracking import PriceSubscriptionModel, PriceHistoryModel
+from infrastructure.database.models.feedbacks import FeedbackModel
 from settings import settings
 
 
