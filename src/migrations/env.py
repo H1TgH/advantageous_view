@@ -10,6 +10,7 @@ from infrastructure.database.database import Base
 from infrastructure.database.models.search_history import SearchHistoryModel
 from infrastructure.database.models.users import UserModel
 from infrastructure.database.models.preferences import UserPreferencesModel
+from infrastructure.database.models.favorites import FavoriteModel
 from settings import settings
 
 
