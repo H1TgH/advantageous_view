@@ -49,7 +49,11 @@ class PriceTrackingRepository:
         model = result.scalar_one_or_none()
         return self._sub_to_dto(model) if model else None
 
-    async def get_subscription_by_id_and_user(self, subscription_id: UUID, user_id: UUID) -> PriceSubscriptionDTO | None:
+    async def get_subscription_by_id_and_user(
+        self,
+        subscription_id: UUID,
+        user_id: UUID
+    ) -> PriceSubscriptionDTO | None:
         stmt = select(PriceSubscriptionModel).where(
             PriceSubscriptionModel.id == subscription_id,
             PriceSubscriptionModel.user_id == user_id,
