@@ -18,7 +18,7 @@ class FavoriteModel(Base):
     )
 
     product_id: Mapped[str] = mapped_column(
-        String, 
+        String,
         nullable=False
     )
 
@@ -28,8 +28,8 @@ class FavoriteModel(Base):
     )
 
     brand: Mapped[str] = mapped_column(
-        String, 
-        nullable=False, 
+        String,
+        nullable=False,
         default=""
     )
 
