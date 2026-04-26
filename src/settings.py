@@ -35,6 +35,7 @@ class SecuritySettings(BaseSettings):
 class Settings(BaseSettings):
     db: DataBaseSettings = Field(default_factory=DataBaseSettings)
     security: SecuritySettings = Field(default_factory=SecuritySettings)
+    apisystem_key: str = Field(alias="APISYSTEM_KEY")
 
 
 settings = Settings()

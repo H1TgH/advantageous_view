@@ -12,3 +12,4 @@ class ProductSchema(BaseModel):
     marketplace: str
     url: str
     score: float | None = None
+    brand: str | None = ""

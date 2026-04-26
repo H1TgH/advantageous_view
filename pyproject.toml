@@ -61,6 +61,7 @@ fixable = [
     "W291",
     "W292",
     "W293",
+    "F401",
 ]
 
 [tool.ruff.lint.flake8-quotes]
