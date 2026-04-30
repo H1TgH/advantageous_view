@@ -1,4 +1,3 @@
-
 import httpx
 
 from core.search.entities import ProductDTO
@@ -7,11 +6,10 @@ from settings import settings
 
 class WBClient:
     BASE_URL = "http://wb.apisystem.name/search"
+    MODELS_URL = "http://wb.apisystem.name/models"
 
     def __init__(self) -> None:
-        self._client = httpx.AsyncClient(
-            timeout=httpx.Timeout(10.0),
-        )
+        self._client = httpx.AsyncClient(timeout=httpx.Timeout(10.0))
         self._api_key = settings.apisystem_key
 
     async def search(self, query: str, page: int = 1) -> list[ProductDTO]:
@@ -25,9 +23,25 @@ class WBClient:
                 "api_key": self._api_key,
             },
         )
-
         resp.raise_for_status()
         data = resp.json()
+        offers = data.get("offers") or []
+        return [self._map_offer(o) for o in offers]
+
+    async def get_model_offers(self, model_id: str) -> list[ProductDTO]:
+        resp = await self._client.get(
+            f"{self.MODELS_URL}/{model_id}/offers",
+            params={
+                "format": "json",
+                "api_key": self._api_key,
+                "count": 30,
+            },
+        )
+        resp.raise_for_status()
+        data = resp.json()
+
+        if data.get("status") != "OK":
+            return []
 
         offers = data.get("offers") or []
         return [self._map_offer(o) for o in offers]
