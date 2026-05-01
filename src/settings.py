@@ -20,9 +20,7 @@ class DataBaseSettings(BaseSettings):
     def database_url(self):
         return f"postgresql+asyncpg://{self.user}:{self.password.get_secret_value()}@{self.host}:{self.port}/{self.db}"
 
-    model_config = SettingsConfigDict(
-        env_prefix="POSTGRES_"
-    )
+    model_config = SettingsConfigDict(env_prefix="POSTGRES_")
 
 
 class SecuritySettings(BaseSettings):
@@ -32,9 +30,32 @@ class SecuritySettings(BaseSettings):
     refresh_ttl: int = Field(alias="REFRESH_TOKEN_EXPIRE_DAYS")
 
 
+class SMTPSettings(BaseSettings):
+    host: str = "smtp.gmail.com"
+    port: int = 465
+    user: str = ""
+    password: SecretStr = SecretStr("")
+    from_email: str = ""
+
+    model_config = SettingsConfigDict(env_prefix="SMTP_")
+
+
+class RedisSettings(BaseSettings):
+    host: str = "redis"
+    port: int = 6379
+
+    @property
+    def url(self) -> str:
+        return f"redis://{self.host}:{self.port}/0"
+
+    model_config = SettingsConfigDict(env_prefix="REDIS_")
+
+
 class Settings(BaseSettings):
     db: DataBaseSettings = Field(default_factory=DataBaseSettings)
     security: SecuritySettings = Field(default_factory=SecuritySettings)
+    smtp: SMTPSettings = Field(default_factory=SMTPSettings)
+    redis: RedisSettings = Field(default_factory=RedisSettings)
     apisystem_key: str = Field(alias="APISYSTEM_KEY")
 
 
