@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.price_tracking.entities import CreateSubscriptionDTO, PriceHistoryItemDTO, PriceSubscriptionDTO
 from infrastructure.database.models.price_tracking import PriceHistoryModel, PriceSubscriptionModel
+from infrastructure.database.models.users import UserModel
 
 
 class PriceTrackingRepository:
@@ -74,6 +75,26 @@ class PriceTrackingRepository:
         )
         result = await self.session.execute(stmt)
         return [self._hist_to_dto(m) for m in result.scalars().all()]
+
+    async def get_last_price(self, subscription_id: UUID) -> float | None:
+        stmt = (
+            select(PriceHistoryModel.price)
+            .where(PriceHistoryModel.subscription_id == subscription_id)
+            .order_by(PriceHistoryModel.created_at.desc())
+            .limit(1)
+        )
+        result = await self.session.execute(stmt)
+        return result.scalar_one_or_none()
+
+    async def get_active_subscriptions_with_emails(self) -> list[tuple[PriceSubscriptionDTO, str]]:
+        stmt = (
+            select(PriceSubscriptionModel, UserModel.email)
+            .join(UserModel, UserModel.id == PriceSubscriptionModel.user_id)
+            .where(PriceSubscriptionModel.is_active.is_(True))
+        )
+        result = await self.session.execute(stmt)
+        rows = result.all()
+        return [(self._sub_to_dto(row[0]), row[1]) for row in rows]
 
     @staticmethod
     def _sub_to_dto(model: PriceSubscriptionModel) -> PriceSubscriptionDTO:
