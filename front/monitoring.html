@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./monitor_style.css" />
+    <link rel="stylesheet" href="./card.css" />
+    <title>Выгодный взгляд</title>
+</head>
+
+<body data-page="monitor">
+    <header class="header">
+        <div class="header-container">
+            <a class="header_logo">
+                <img class="header_logo-image" src="./images/logo.svg" alt="Логотип проекта">
+            </a>
+            <div class="header_content_menu">
+                <nav class="header__menu">
+                    <ul class="header__links-list">
+                        <li class="header__links-list-item_no-bullit">
+                            <a class="header__link" href="compare.html">Поиск</a>
+                        </li>
+                        <li class="hader__linkes-list-item">
+                            <a class="header__link_active" href="#">Отслеживание цен</a>
+                        </li>
+                        <li class="hader__linkes-list-item">
+                            <a class="header__link" href="#">История поиска</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="user-profile">
+                <img src="./images/message.svg" class="message-icon">
+                <a href="#" class="profile-button">
+                    <img src="./images/search.svg" class="header__search-icon" alt="Икона поиска">
+                    <span>Личный кабинет</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    <main class="main">
+        <div class="container">
+            <h1 class="main-title">Мониторинг цен</h1>
+            <p class="main-subtitle">Получайте уведомление о снижении цены!</p>
+
+            <section class="monitoring-list">
+                <article class="monitoring-card">
+                    <img src="./images/product.png" alt="iPhone 15" class="product-img">
+
+                    <div class="product-info">
+                        <h3 class="product-name">iPhone 15 128GB черный</h3>
+                        <p class="current-price">Текущая цена: <strong>69 990 ₽</strong></p>
+                    </div>
+
+                    <div class="price-setting">
+                        <label class="price-label">
+                            Целевая цена: <span class="price-value">65 000 ₽</span>
+                        </label>
+                        <input type="range" class="price-slider" min="10" max="750000" value="65000">
+                    </div>
+
+                    <div class="notification-settings">
+                        <span class="label">Уведомлять:</span>
+                        <div class="notify-buttons">
+                            <button class="notify-btn active">Выгодный взгляд</button>
+                            <button class="notify-btn">Email</button>
+                        </div>
+                    </div>
+
+                    <div class="market-info">
+                        <img src="./images/wildberries.png" alt="Wildberries" class="market-logo">
+                        <a href="#" class="details-button" onclick="openModal(); return false;">Подробнее →</a>
+                    </div>
+
+                    <div class="menu-container">
+                        <button class="menu-trigger">⋮</button>
+                        <div class="menu-dropdown">
+                            <button class="delete-item-btn">Удалить</button>
+                        </div>
+                    </div>
+                </article>
+                <article class="monitoring-card">
+                    <img src="./images/product.png" alt="iPhone 15" class="product-img">
+
+                    <div class="product-info">
+                        <h3 class="product-name">iPhone 15 128GB черный</h3>
+                        <p class="current-price">Текущая цена: <strong>69 990 ₽</strong></p>
+                    </div>
+
+                    <div class="price-setting">
+                        <label class="price-label">
+                            Целевая цена: <span class="price-value">65 000 ₽</span>
+                        </label>
+                        <input type="range" class="price-slider" min="10" max="750000" value="65000">
+                    </div>
+
+                    <div class="notification-settings">
+                        <span class="label">Уведомлять:</span>
+                        <div class="notify-buttons">
+                            <button class="notify-btn active">Выгодный взгляд</button>
+                            <button class="notify-btn">Email</button>
+                        </div>
+                    </div>
+
+                    <div class="market-info">
+                        <img src="./images/wildberries.png" alt="Wildberries" class="market-logo">
+                        <a href="#" class="details-button" onclick="openModal(); return false;">Подробнее →</a>
+                    </div>
+
+                    <div class="menu-container">
+                        <button class="menu-trigger">⋮</button>
+                        <div class="menu-dropdown">
+                            <button class="delete-item-btn">Удалить</button>
+                        </div>
+                    </div>
+                </article>
+                <article class="monitoring-card">
+                    <img src="./images/product.png" alt="iPhone 15" class="product-img">
+
+                    <div class="product-info">
+                        <h3 class="product-name">iPhone 15 128GB черный</h3>
+                        <p class="current-price">Текущая цена: <strong>69 990 ₽</strong></p>
+                    </div>
+
+                    <div class="price-setting">
+                        <label class="price-label">
+                            Целевая цена: <span class="price-value">65 000 ₽</span>
+                        </label>
+                        <input type="range" class="price-slider" min="10" max="750000" value="65000">
+                    </div>
+
+                    <div class="notification-settings">
+                        <span class="label">Уведомлять:</span>
+                        <div class="notify-buttons">
+                            <button class="notify-btn active">Выгодный взгляд</button>
+                            <button class="notify-btn">Email</button>
+                        </div>
+                    </div>
+
+                    <div class="market-info">
+                        <img src="./images/wildberries.png" alt="Wildberries" class="market-logo">
+                        <a href="#" class="details-button" onclick="openModal(); return false;">Подробнее →</a>
+                    </div>
+
+                    <div class="menu-container">
+                        <button class="menu-trigger">⋮</button>
+                        <div class="menu-dropdown">
+                            <button class="delete-item-btn">Удалить</button>
+                        </div>
+                    </div>
+                </article>
+
+
+            </section>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="./images/logo.svg" alt="Выгодный Взгляд" class="footer-logo-image">
+            </div>
+
+            <div class="footer-info">
+                <p class="footer-text">
+                    «Выгодный Взгляд» трансформирует хаотичный процесс поиска в управляемый,
+                    основанный на данных выбор, где решение принимается не на эмоциях или случайности,
+                    а на четкой логике, соответствующей вашим личным критериям. Это дает пользователю
+                    чувство контроля, уверенности и реальную экономию ресурсов.
+                </p>
+            </div>
+
+            <div class="footer-contacts">
+                <a href="tel:+79999999999" class="footer-phone">+7 999 999 99 99</a>
+            </div>
+        </div>
+    </footer>
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeModal()">×</button>
+
+            <div class="modal-content">
+                <!-- КОЛОНКА 1: Изображение и Отзывы -->
+                <div class="modal-col-left">
+                    <img src="./images/product.png" alt="iPhone 15" class="modal-product-img">
+
+                    <div class="analysis-reviews">
+                        <h3 class="analysis-title">Анализ отзывов</h3>
+                        <p class="analysis-subtitle">Ключевые характеристики на основе отзывов на страницах
+                            маркетплейсов.</p>
+                        <div class="review-badges">
+                            <div class="badge-row">
+                                <span>Качество товара:</span>
+                                <span class="badge">хорошее</span>
+                            </div>
+                            <div class="badge-row">
+                                <span>Доставка:</span>
+                                <span class="badge">быстрая</span>
+                            </div>
+                            <div class="badge-row">
+                                <span>Соответствие описанию:</span>
+                                <span class="badge">соответствует</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- КОЛОНКА 2: Основная инфо -->
+                <div class="modal-col-center">
+                    <h2 class="modal-title">iPhone 15 128GB черный</h2>
+                    <div class="modal-rating">
+                        <span class="rating-value">⭐ 4,7</span>
+                        <span class="reviews-count">188 отзывов</span>
+                    </div>
+
+                    <div class="modal-info-details">
+                        <p class="delivery-text">Доставка : 399 р.</p>
+                        <p class="info-label">Основная информация :</p>
+                        <div class="specs-box">
+                            Цвет: черный;<br>
+                            Память: 128 GB;<br>
+                            Гарантия: 1 год;<br>
+                            Состояние: новый.
+                        </div>
+                        <div class="seller-line">
+                            <span>Продавец:</span>
+                            <div class="seller-brand">
+                                <img src="./images/seller.svg" alt="" class="shop-icon" width="20">
+                                <div class="seller-details">
+                                    <span class="seller-name">Айстар Бутик</span>
+                                    <span class="seller-rating">
+                                        ⭐ <span class="rating-value">4.7</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="favBtn" class="add-to-fav" onclick="toggleFavorite()">
+                            <span class="heart-icon">♡</span> <span class="btn-text">Добавить в избранное</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- КОЛОНКА 3: График и Кнопки -->
+                <div class="modal-col-right">
+                    <div class="price-analysis-card">
+                        <h3>Анализ цены</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="priceChart"></canvas>
+                        </div>
+                        <div class="price-summary">
+                            <p class="p-old">68 990 ₽</p>
+                            <p class="p-delivery">Доставка: 399 р.</p>
+                            <p class="p-total">Итог: 69 389 ₽</p>
+                            <div class="market-tag">
+                                <img src="./images/yandex.png" alt="Маркет" width="100" height="30">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-main-actions">
+                        <button class="btn-buy">Купить на маркетплейсе</button>
+                        <button class="btn-monitor" data-product-id="iphone15">
+                            Мониторить цену
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="script_card.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+
+</html>
