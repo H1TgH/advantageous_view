@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo"><img class="logo-img" src="img/logo.png" alt="logo"></div>
+            <nav class="nav">
+                <ul>
+                    <li id="search"><a href="/index.html">Поиск</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container" style="padding: 4rem 0;">
+        <h1>Регистрация</h1>
+        <form class="registration-form" id="registrationForm">
+            <div class="input-group">
+                <label for="lastName">Имя</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Почта</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Придумайте пароль</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div class="input-group">
+                <label for="confirmPassword">Повторите пароль</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+            </div>
+
+            <div class="input-group checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="consentCheckbox" name="consent" required>
+                    <p>Соглашаюсь на обработку моих персональных данных и принимаю условия соглашения</p>
+                </label>
+            </div>
+            
+            <div style="display: flex; justify-content: end;">
+                <button type="button" id="registerBtn" class="cta-button">Далее</button>
+            </div>
+        </form>
+    </div>
+    
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="logo"><a href="index.html"><img class="logo-img" src="img/logo.png" alt="logo"></div></a>
+            <p>«Выгодный Взгляд» трансформирует хаотичный процесс поиска в управляемый, основанный на данных выбор, где решение принимается 
+                не на эмоциях или случайности, а на четкой логике, соответствующей вашим личным критериям. Это дает пользователю 
+                чувство контроля, уверенности и реальную экономию ресурсов.</p>
+            <p>+7 999 999 99 99</p>
+        </div>
+    </footer>
+
+    <script src="js/registration.js"></script>
+</body>
+</html>

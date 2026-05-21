@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/style_index.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo"><a href="index.html"><img class="logo-img" src="img/logo.png" alt="logo"></div></a>
+            <nav class="nav">
+                <ul>
+                    <li id="search"><a href="/index.html">Поиск</a></li>
+                    <li id="track"><a href="monitoring.html">Отслеживание цен</a></li>
+                    <li id="history"><a href="/search_history.html">История поиска</a></li>
+                </ul>
+            </nav>
+            <div class="buttom-input">
+                <button id="userAuthButton" class="buttom-input">
+                    <!-- Содержимое меняется через JS -->
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной блок профиля (показывается только авторизованным) -->
+    <div class="container" id="profileBlock" style="padding: 30px 10%; display: none;">
+        <div class="profile-card">
+            <div class="profile-header">
+                <h1>Личный кабинет</h1>
+            </div>
+            <div class="profile-inner">
+                <!-- Вкладки навигации -->
+                <div class="profile-tabs">
+                    <div class="tab-item active">
+                        <i class="fas fa-user"></i> Профиль
+                    </div>
+                    <div class="tab-item">
+                        <i class="fas fa-heart"></i> Избранное
+                    </div>
+                    <div class="tab-item" style="border: none;">
+                        <i class="fas fa-sliders-h"></i> Настройки предпочтений
+                    </div>
+                </div>
+
+                <!-- Секция Личная информация -->
+                <div class="info-section">
+                    <div class="section-header">
+                        <h2>Личная информация</h2>
+                    </div>
+                    <div class="info-content">
+                        <div class="info-row">
+                            <span class="info-label">Имя:</span>
+                            <span class="info-value" id="displayName">Mariya</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Email:</span>
+                            <span class="info-value" id="displayEmail">Mariya.Ivanova@mail.ru</span>
+                        </div>
+                    </div>
+                    <button class="edit-btn" id="editInfoBtn">
+                        <i class="fas fa-pencil-alt"></i> Редактировать
+                    </button>
+                </div>
+
+                <!-- Секция Уведомление с переключателем -->
+                <div class="notifications-section">
+                    <div class="section-header">
+                        <h2>Уведомление</h2>
+                        <div class="toggle-switch">
+                            <span class="toggle-label off" id="notifOffLabel">Выкл.</span>
+                            <label class="switch">
+                                <input type="checkbox" id="notificationToggle">
+                                <span class="slider round"></span>
+                            </label>
+                            <span class="toggle-label on" id="notifOnLabel">Вкл.</span>
+                        </div>
+                    </div>
+                
+                    <h2>Подписки</h2>
+                    <div class="subscriptions-list">
+                        <label class="subscription-item">
+                            <input type="checkbox" class="sub-checkbox" checked>
+                            <span class="checkmark"></span>
+                            <span class="sub-text">Измените цены товара в списке отслеживаемых</span>
+                        </label>
+                        <label class="subscription-item">
+                            <input type="checkbox" class="sub-checkbox" checked>
+                            <span class="checkmark"></span>
+                            <span class="sub-text">Новые фичи сервиса</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- Кнопка выхода -->
+            <div class="logout-section">
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Выйти
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для редактирования -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Редактировать информацию</h3>
+                <button class="close-modal" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="editName">Имя:</label>
+                    <input type="text" id="editName" placeholder="Введите имя">
+                </div>
+                <div class="form-group">
+                    <label for="editEmail">Email:</label>
+                    <input type="email" id="editEmail" placeholder="Введите email">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="cancelModalBtn">Отмена</button>
+                <button class="btn-save" id="saveModalBtn">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="logo"><a href="index.html"><img class="logo-img" src="img/logo.png" alt="logo"></div></a>
+            <p>«Выгодный Взгляд» трансформирует хаотичный процесс поиска в управляемый, основанный на данных выбор, где решение принимается 
+                не на эмоциях или случайности, а на четкой логике, соответствующей вашим личным критериям. Это дает пользователю 
+                чувство контроля, уверенности и реальную экономию ресурсов.</p>
+            <p>+7 999 999 99 99</p>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>

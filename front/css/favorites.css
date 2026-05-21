@@ -1,0 +1,54 @@
+.favorite-img{
+    width: 10%;
+    height: 30%;
+}
+
+.favorite-item{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.favorite-info{
+    margin-right: 20%;
+}
+
+.favorite-name{
+    font-size: 24px;
+}
+
+.favorite-rating{
+    font-size: 20px;
+}
+
+.favorite-price{
+    font-size: 20px;
+}
+
+.ps-btn{
+    display: grid;
+}
+
+.ps1-btn{
+    padding: 10px 30px;
+    font-size: 20px;
+    color: #fff;
+    background: #0651CE;
+    border: none;
+    border-radius: 10px;
+}
+
+.ps2-btn{
+    margin-top: 15px;
+    padding: 10px 37px;
+    font-size: 20px;
+    color: #fff;
+    background: #1E388E;
+    border: none;
+    border-radius: 10px;
+}
+
+.favorite-remove{
+    background: none;
+    border: none;
+}

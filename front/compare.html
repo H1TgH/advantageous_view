@@ -4,36 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css" />
-    <link rel="stylesheet" href="./card.css" />
+    <link rel="stylesheet" href="css/style1.css" />
+    <link rel="stylesheet" href="css/card.css" />
     <title>Выгодный взгляд</title>
 </head>
 
 <body data-page="search">
     <header class="header">
         <div class="header-container">
-            <a class="header_logo">
-                <img class="header_logo-image" src="./images/logo.svg" alt="Логотип проекта">
+            <a href="index.html" class="header_logo">
+                <img class="header_logo-image" src="./img/logo.svg" alt="Логотип проекта">
             </a>
             <div class="header_content_menu">
                 <nav class="header__menu">
                     <ul class="header__links-list">
                         <li class="header__links-list-item_no-bullit">
-                            <a class="header__link_active" href="#">Поиск</a>
+                            <a class="header__link_active" href="compare.html">Поиск</a>
                         </li>
                         <li class="hader__linkes-list-item">
                             <a class="header__link" href="monitoring.html">Отслеживание цен</a>
                         </li>
                         <li class="hader__linkes-list-item">
-                            <a class="header__link" href="#">История поиска</a>
+                            <a class="header__link" href="search_history.html">История поиска</a>
                         </li>
                     </ul>
                 </nav>
             </div>
             <div class="user-profile">
-                <img src="./images/message.svg" class="message-icon">
-                <a href="#" class="profile-button">
-                    <img src="./images/search.svg" class="header__search-icon" alt="Икона поиска">
+                <img src="./img/message.svg" class="message-icon">
+                <a href="profile.html" class="profile-button">
+                    <img src="./img/search.svg" class="header__search-icon" alt="Икона поиска">
                     <span>Личный кабинет</span>
                 </a>
             </div>
@@ -42,7 +42,7 @@
     <main class="main">
         <section class="search-section">
             <div class="search-container">
-                <img src="./images/search_2.svg" class="main__search-icon" alt="Икона поиска">
+                <img src="./img/search_2.svg" class="main__search-icon" alt="Икона поиска">
                 <input type="text" class="search-input" placeholder="iPhone 15 128GB черный">
                 <button class="search-button">Найти</button>
             </div>
@@ -114,7 +114,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><img src="./images/ozon.png" alt="Ozon" class="market-logo"></td>
+                        <td><img src="./img/ozon.png" alt="Ozon" class="market-logo"></td>
                         <td>
                             <div class="seller-info">
                                 <span class="seller-name">Phone Store</span>
@@ -143,7 +143,7 @@
                     </tr>
 
                     <tr>
-                        <td><img src="./images/wildberries.png" alt="Wildberries" class="market-logo"></td>
+                        <td><img src="./img/wildberries.png" alt="Wildberries" class="market-logo"></td>
                         <td>
                             <div class="seller-info">
                                 <span class="seller-name">Apple Shop</span>
@@ -173,7 +173,7 @@
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-logo">
-                <img src="./images/logo.svg" alt="Выгодный Взгляд" class="footer-logo-image">
+                <a href="index.html"><img src="./img/logo.svg" alt="Выгодный Взгляд" class="footer-logo-image"></a>
             </div>
 
             <div class="footer-info">
@@ -197,7 +197,7 @@
             <div class="modal-content">
                 <!-- КОЛОНКА 1: Изображение и Отзывы -->
                 <div class="modal-col-left">
-                    <img src="./images/product.png" alt="iPhone 15" class="modal-product-img">
+                    <img src="./img/product.png" alt="iPhone 15" class="modal-product-img">
 
                     <div class="analysis-reviews">
                         <h3 class="analysis-title">Анализ отзывов</h3>
@@ -240,7 +240,7 @@
                         <div class="seller-line">
                             <span>Продавец:</span>
                             <div class="seller-brand">
-                                <img src="./images/seller.svg" alt="" class="shop-icon" width="20">
+                                <img src="./img/seller.svg" alt="" class="shop-icon" width="20">
                                 <div class="seller-details">
                                     <span class="seller-name">Айстар Бутик</span>
                                     <span class="seller-rating">
@@ -267,7 +267,7 @@
                             <p class="p-delivery">Доставка: 399 р.</p>
                             <p class="p-total">Итог: 69 389 ₽</p>
                             <div class="market-tag">
-                                <img src="./images/yandex.png" alt="Маркет" width="100" height="30">
+                                <img src="./img/yandex.png" alt="Маркет" width="100" height="30">
                             </div>
                         </div>
                     </div>
@@ -285,9 +285,5 @@
     <script src="script.js"></script>
     <script src="script_card.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
-
 </body>
-
 </html>

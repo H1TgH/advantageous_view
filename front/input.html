@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-container">
+            <div class="logo"><img class="logo-img" src="img/logo.png" alt="logo"></div>
+            <nav class="nav">
+                <ul>
+                    <li id="search"><a href="/index.html">Поиск</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Вход</h1>
+        <form class="registration-form" action="/submit" method="POST">
+            
+            <div class="input-group">
+                <label for="login">Почта</label>
+                <input type="text" id="login" name="login" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Пароль</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <div style="display: flex; justify-content:center;">
+                <button type="submit">Войти</button>
+            </div>
+            <p>Еще нет аккаунта? <a href="/registration.html">Зарегистрироваться</a></p> 
+        </form>
+    </div>
+    
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="logo"><a href="index.html"><img class="logo-img" src="img/logo.png" alt="logo"></div></a>
+            <p>«Выгодный Взгляд» трансформирует хаотичный процесс поиска в управляемый, основанный на данных выбор, где решение принимается 
+                не на эмоциях или случайности, а на четкой логике, соответствующей вашим личным критериям. Это дает пользователю 
+                чувство контроля, уверенности и реальную экономию ресурсов.</p>
+            <p>+7 999 999 99 99</p>
+        </div>
+    </footer>
+
+    <script src="js\index_help.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/login-handler.js"></script>
+</body>
+</html>

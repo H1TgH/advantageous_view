@@ -1,0 +1,110 @@
+.main {
+    width: 95%;
+    margin: 55px auto;
+    background-color: #ffffff;
+
+}
+
+.main-title { font-size: 32px; margin-bottom: 8px; }
+.main-subtitle { color: #666; margin-bottom: 30px; }
+
+.monitoring-card {
+    background: white;
+    border: 1px solid #E0E0E0;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.product-img { width: 80px; height: 80px; object-fit: contain; }
+
+.product-info { flex: 1; }
+.product-name { font-size: 18px; margin-bottom: 5px; }
+.current-price { color: #333; }
+
+/* Стилизация слайдера */
+.price-setting { display: flex; flex-direction: column; gap: 8px; min-width: 200px; }
+.price-slider { 
+    width: 100%; 
+    accent-color: #0F3C85; /* Синий цвет ползунка */
+    cursor: pointer;
+}
+.price-value{
+    font-size: 18px;
+}
+
+/* Уведомления */
+.notify-buttons { display: flex; gap: 8px; margin-top: 5px; }
+.notify-btn {
+    border: 1px solid #0F3C85;
+    background: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+}
+.notify-btn.active { background: #0F3C85; color: white; }
+
+/* Маркетплейс и кнопка */
+.market-info { display: flex; flex-direction: column; align-items: center; gap: 10px;     margin-right: 3em;}
+.market-logo { width: 100px; }
+.details-link { background: #0F3C85; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px; }
+
+/* Кнопка удаления */
+.delete-btn { border: none; background: transparent; font-size: 24px; cursor: pointer; color: #999; }
+.monitoring-card {
+    position: relative; 
+}
+
+/* Контейнер для меню (три точки) */
+.menu-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+}
+
+.menu-trigger {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+}
+
+/* Выпадающее меню */
+.menu-dropdown {
+    display: none; 
+    position: absolute;
+    top: 100%;
+    right: 0;      /* Прижимает меню к правому краю */
+    left: auto;    /* Сбрасывает левое позиционирование */
+    margin-top: 8px; /* Отступ от кнопки с точками */
+    padding-left: 10px; /* Отступ слева внутри самого блока меню для текста */
+    background: white;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 100; /* Чтобы меню было поверх всех элементов */
+    min-width: 100px; /* Чтобы меню не было слишком узким */
+}
+
+
+.menu-dropdown.active {
+    display: block; /* Показываем при клике */
+}
+
+.delete-item-btn {
+    background: none;
+    border: none;
+    color: #d32f2f;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 100%;
+    text-align: left;
+}
+
+.delete-item-btn:hover { background: #f9f9f9; }
