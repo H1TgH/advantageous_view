@@ -265,13 +265,13 @@ document.addEventListener('DOMContentLoaded', function() {
             tab.classList.remove('active');
             
             // Определяем какая вкладка должна быть активной
-            if (currentPath === '/profile.html' || currentPath === '/' || currentPath === '/index.html') {
+            if (currentPath === './profile.html' || currentPath === '/' || currentPath === './index.html') {
                 if (index === 0) tab.classList.add('active');
             } 
-            else if (currentPath === '/favourites.html') {
+            else if (currentPath === './favourites.html') {
                 if (index === 1) tab.classList.add('active');
             }
-            else if (currentPath === '/preferences.html') {
+            else if (currentPath === './preferences.html') {
                 if (index === 2) tab.classList.add('active');
             }
         });
@@ -285,11 +285,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Переход на соответствующую страницу
             if (index === 0) {
-                window.location.href = '/profile.html';
+                window.location.href = './profile.html';
             } else if (index === 1) {
-                window.location.href = '/favourites.html';
+                window.location.href = './favourites.html';
             } else if (index === 2) {
-                window.location.href = '/preferences.html';
+                window.location.href = './preferences.html';
             }
         });
     });

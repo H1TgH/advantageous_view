@@ -1,13 +1,13 @@
 // Функция для обновления кнопки на "Войти"
 function updateButtonToLogin(buttonElement) {
-    buttonElement.innerHTML = '<img src="/img/input.png" style="height: 40px; width: 40px;">Войти ';
+    buttonElement.innerHTML = '<img src="./img/input.png" style="height: 40px; width: 40px;">Войти ';
     buttonElement.setAttribute('data-status', 'logged-out');
     buttonElement.title = "Войти в аккаунт";
 }
 
 // Функция для обновления кнопки на "Профиль"
 function updateButtonToProfile(buttonElement) {
-    buttonElement.innerHTML = '<img src="/img/white-search.png" style="height: 40px; width: 40px;"> Личный кабинет';
+    buttonElement.innerHTML = '<img src="./img/white-search.png" style="height: 40px; width: 40px;"> Личный кабинет';
     buttonElement.setAttribute('data-status', 'logged-in');
     buttonElement.title = "Перейти в профиль";
 }
@@ -76,10 +76,10 @@ function initAuthButton() {
         
         if (status === 'logged-in') {
             // Если авторизован - переход в профиль
-            window.location.href = '/profile.html';
+            window.location.href = './profile.html';
         } else {
             // Если не авторизован - переход на страницу входа
-            window.location.href = '/input.html';
+            window.location.href = './input.html';
         }
     });
     
@@ -131,11 +131,11 @@ function logoutUser() {
     updateVisibilityByAuthStatus();
     
     // Перенаправляем на главную страницу
-    window.location.href = '/index.html';
+    window.location.href = './index.html';
 }
 
 // Проверка доступа к защищенным страницам
-function requireAuth(redirectTo = '/input.html') {
+function requireAuth(redirectTo = './input.html') {
     if (!checkAuthStatus()) {
         window.location.href = redirectTo;
         return false;

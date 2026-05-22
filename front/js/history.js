@@ -66,7 +66,7 @@ function repeatSearch(query) {
         addToSearchHistory(query);
     }
     // Перенаправляем на главную страницу с параметром поиска
-    window.location.href = `/index.html?search=${encodeURIComponent(query)}`;
+    window.location.href = `./index.html?search=${encodeURIComponent(query)}`;
 }
 
 // Функция для добавления в историю (только для авторизованных)
@@ -198,7 +198,7 @@ function renderHistory() {
             <div class="empty-history">
                 <p>🔒 История поиска доступна только авторизованным пользователям</p>
                 <p style="font-size: 20px; margin-top: 8px;">
-                    <a href="/input.html" style="color: #007bff;">Войдите в аккаунт</a>, чтобы просматривать историю
+                    <a href="./input.html" style="color: #007bff;">Войдите в аккаунт</a>, чтобы просматривать историю
                 </p>
             </div>
         `;
@@ -220,14 +220,14 @@ function renderHistory() {
         return `
             <div class="history-item" data-id="${item.id}">
                 <div class="history-query">
-                    <img src="/img/input-black.png">
+                    <img src="./img/input-black.png">
                     <span class="query-text">${escapeHtml(item.query)}</span>
                 </div>
                 <div class="history-info">
                     <span class="history-time">${relativeTime}</span>
                     <div class="history-actions">
                         <button class="repeat-search-btn" data-query="${escapeHtml(item.query)}">Сравнить товары</button>
-                        <button class="delete-item-btn" data-id="${item.id}"><img src="/img/delete.png"></button>
+                        <button class="delete-item-btn" data-id="${item.id}"><img src="./img/delete.png"></button>
                     </div>
                 </div>
             </div>

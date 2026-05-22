@@ -82,6 +82,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Показываем сообщение и переходим в профиль
         alert('Регистрация прошла успешно!');
-        window.location.href = '/profile.html';
+        window.location.href = './profile.html';
     });
 });
