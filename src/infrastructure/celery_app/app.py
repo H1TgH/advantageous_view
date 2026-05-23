@@ -22,7 +22,7 @@ celery_app.conf.update(
     beat_schedule={
         "check-prices-daily": {
             "task": "check_prices",
-            "schedule": crontab(hour=13, minute=46),
+            "schedule": crontab(hour=0, minute=0),
         },
     },
 )
