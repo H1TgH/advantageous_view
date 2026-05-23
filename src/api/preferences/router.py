@@ -27,6 +27,7 @@ async def get_preferences(
         price_weight=prefs.price_weight,
         rating_weight=prefs.rating_weight,
         feedbacks_weight=prefs.feedbacks_weight,
+        speed_weight=prefs.speed_weight,
     )
 
 
@@ -44,5 +45,6 @@ async def update_preferences(
         price_weight=data.price_weight,
         rating_weight=data.rating_weight,
         feedbacks_weight=data.feedbacks_weight,
+        speed_weight=data.speed_weight,
     )
     await service.update(dto)

@@ -4,7 +4,7 @@ from pydantic import BaseModel
 class ProductSchema(BaseModel):
     id: str
     title: str
-    brand: str
+    brand: str = ""
     price: float
     rating: float
     feedbacks: int
@@ -12,4 +12,6 @@ class ProductSchema(BaseModel):
     marketplace: str
     url: str
     score: float | None = None
-    brand: str | None = ""
+    delivery_days: int | None = None
+    delivery_price: int | None = None
+    delivery_free: bool | None = None

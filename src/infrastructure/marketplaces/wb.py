@@ -1,4 +1,8 @@
+import re
+from datetime import date
+
 import httpx
+from dateutil import parser as date_parser
 
 from core.search.entities import ProductDTO
 from settings import settings
@@ -46,7 +50,40 @@ class WBClient:
         offers = data.get("offers") or []
         return [self._map_offer(o) for o in offers]
 
-    def _map_offer(self, o: dict) -> ProductDTO:
+    @staticmethod
+    def _parse_delivery_days(raw: str | None) -> int | None:
+        if not raw:
+            return None
+
+        text = raw.strip().lower()
+
+        if text == "сегодня":
+            return 0
+        if text == "завтра":
+            return 1
+        if text == "послезавтра":
+            return 2
+
+        match = re.search(r"(\d+)\s*[-–—]?\s*(\d+)?\s*дн", text)
+        if match:
+            return int(match.group(1))
+
+        match = re.search(r"(\d+)\s*дн", text)
+        if match:
+            return int(match.group(1))
+
+        try:
+            delivery_date = date_parser.parse(raw, dayfirst=True).date()
+            return max((delivery_date - date.today()).days, 0)
+        except (ValueError, TypeError, OverflowError):
+            return None
+
+    @classmethod
+    def _map_offer(cls, o: dict) -> ProductDTO:
+        raw_delivery_price = o.get("delivery_cost")
+        delivery_price = int(raw_delivery_price) if raw_delivery_price is not None else None
+        delivery_free = delivery_price == 0 if delivery_price is not None else None
+
         return ProductDTO(
             id=str(o.get("model_id") or o.get("offer_id")),
             title=o.get("offer_name", ""),
@@ -57,4 +94,7 @@ class WBClient:
             seller=o.get("shop_name") or "",
             marketplace="wb",
             url=o.get("url") or "",
+            delivery_days=cls._parse_delivery_days(o.get("delivery_time")),
+            delivery_price=delivery_price,
+            delivery_free=delivery_free,
         )

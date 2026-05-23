@@ -24,6 +24,7 @@ class UserPreferencesRepository:
             price_weight=model.price_weight,
             rating_weight=model.rating_weight,
             feedbacks_weight=model.feedbacks_weight,
+            speed_weight=model.speed_weight,
         )
 
     async def upsert(self, dto: UserPreferencesDTO) -> None:
@@ -35,10 +36,12 @@ class UserPreferencesRepository:
             model.price_weight = dto.price_weight
             model.rating_weight = dto.rating_weight
             model.feedbacks_weight = dto.feedbacks_weight
+            model.speed_weight = dto.speed_weight
         else:
             self.session.add(UserPreferencesModel(
                 user_id=dto.user_id,
                 price_weight=dto.price_weight,
                 rating_weight=dto.rating_weight,
                 feedbacks_weight=dto.feedbacks_weight,
+                speed_weight=dto.speed_weight,
             ))

@@ -1,6 +1,7 @@
 from fastapi import APIRouter, FastAPI
 
 from api.favorites.router import favorites_router
+from api.notifications.router import notifications_router
 from api.feedbacks.router import feedback_router
 from api.preferences.router import preferences_router
 from api.price_tracking.router import price_tracking_router
@@ -18,6 +19,7 @@ api_v1_router.include_router(preferences_router)
 api_v1_router.include_router(search_history_router)
 api_v1_router.include_router(favorites_router)
 api_v1_router.include_router(price_tracking_router)
+api_v1_router.include_router(notifications_router)
 api_v1_router.include_router(feedback_router)
 
 app.include_router(api_v1_router)

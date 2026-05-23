@@ -101,6 +101,12 @@ class YandexMarketClient:
     @classmethod
     def _map_offer(cls, o: dict) -> ProductDTO:
         rating_raw = o.get("product_rating")
+        raw_delivery_price = o.get("delivery_cost")
+        delivery_price = int(raw_delivery_price) if raw_delivery_price is not None else None
+        delivery_free = delivery_price == 0 if delivery_price is not None else None
+        raw_delivery_days = o.get("delivery_time")
+        delivery_days = int(raw_delivery_days) if raw_delivery_days is not None else None
+
         return ProductDTO(
             id=str(o.get("market_sku") or o.get("offer_id") or ""),
             title=o.get("offer_name", ""),
@@ -111,4 +117,7 @@ class YandexMarketClient:
             seller=o.get("shop_name") or o.get("business_name") or "",
             marketplace="ym",
             url=o.get("url") or "",
+            delivery_days=delivery_days,
+            delivery_price=delivery_price,
+            delivery_free=delivery_free,
         )

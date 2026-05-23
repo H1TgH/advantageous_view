@@ -50,6 +50,18 @@ class PriceSubscriptionModel(Base):
         default=True
     )
 
+    notify_in_app: Mapped[bool] = mapped_column(
+        Boolean,
+        nullable=False,
+        default=True,
+    )
+
+    notify_email: Mapped[bool] = mapped_column(
+        Boolean,
+        nullable=False,
+        default=False,
+    )
+
 
 class PriceHistoryModel(Base):
     __tablename__ = "price_history"

@@ -3,7 +3,12 @@ from uuid import UUID
 from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.price_tracking.entities import CreateSubscriptionDTO, PriceHistoryItemDTO, PriceSubscriptionDTO
+from core.price_tracking.entities import (
+    CreateSubscriptionDTO,
+    PriceHistoryItemDTO,
+    PriceSubscriptionDTO,
+    UpdateSubscriptionNotificationsDTO,
+)
 from infrastructure.database.models.price_tracking import PriceHistoryModel, PriceSubscriptionModel
 from infrastructure.database.models.users import UserModel
 
@@ -21,6 +26,8 @@ class PriceTrackingRepository:
             marketplace=dto.marketplace,
             target_price=dto.target_price,
             is_active=True,
+            notify_in_app=dto.notify_in_app,
+            notify_email=dto.notify_email,
         )
         self.session.add(model)
         await self.session.flush()
@@ -53,7 +60,7 @@ class PriceTrackingRepository:
     async def get_subscription_by_id_and_user(
         self,
         subscription_id: UUID,
-        user_id: UUID
+        user_id: UUID,
     ) -> PriceSubscriptionDTO | None:
         stmt = select(PriceSubscriptionModel).where(
             PriceSubscriptionModel.id == subscription_id,
@@ -62,6 +69,26 @@ class PriceTrackingRepository:
         result = await self.session.execute(stmt)
         model = result.scalar_one_or_none()
         return self._sub_to_dto(model) if model else None
+
+    async def update_notifications(
+        self,
+        subscription_id: UUID,
+        user_id: UUID,
+        dto: UpdateSubscriptionNotificationsDTO,
+    ) -> PriceSubscriptionDTO | None:
+        stmt = select(PriceSubscriptionModel).where(
+            PriceSubscriptionModel.id == subscription_id,
+            PriceSubscriptionModel.user_id == user_id,
+        )
+        result = await self.session.execute(stmt)
+        model = result.scalar_one_or_none()
+        if not model:
+            return None
+
+        model.notify_in_app = dto.notify_in_app
+        model.notify_email = dto.notify_email
+        await self.session.flush()
+        return self._sub_to_dto(model)
 
     async def delete_subscription(self, subscription_id: UUID) -> None:
         stmt = delete(PriceSubscriptionModel).where(PriceSubscriptionModel.id == subscription_id)
@@ -86,7 +113,7 @@ class PriceTrackingRepository:
         result = await self.session.execute(stmt)
         return result.scalar_one_or_none()
 
-    async def get_active_subscriptions_with_emails(self) -> list[tuple[PriceSubscriptionDTO, str]]:
+    async def get_active_subscriptions_with_emails(self) -> list[tuple[PriceSubscriptionDTO, UUID, str]]:
         stmt = (
             select(PriceSubscriptionModel, UserModel.email)
             .join(UserModel, UserModel.id == PriceSubscriptionModel.user_id)
@@ -94,7 +121,7 @@ class PriceTrackingRepository:
         )
         result = await self.session.execute(stmt)
         rows = result.all()
-        return [(self._sub_to_dto(row[0]), row[1]) for row in rows]
+        return [(self._sub_to_dto(row[0]), row[0].user_id, row[1]) for row in rows]
 
     @staticmethod
     def _sub_to_dto(model: PriceSubscriptionModel) -> PriceSubscriptionDTO:
@@ -106,6 +133,8 @@ class PriceTrackingRepository:
             marketplace=model.marketplace,
             target_price=model.target_price,
             is_active=model.is_active,
+            notify_in_app=model.notify_in_app,
+            notify_email=model.notify_email,
             created_at=model.created_at,
         )
 
