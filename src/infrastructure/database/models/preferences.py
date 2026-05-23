@@ -15,6 +15,7 @@ class UserPreferencesModel(Base):
         nullable=False,
     )
 
-    price_weight: Mapped[float] = mapped_column(server_default="0.5")
+    price_weight: Mapped[float] = mapped_column(server_default="0.4")
     rating_weight: Mapped[float] = mapped_column(server_default="0.25")
-    feedbacks_weight: Mapped[float] = mapped_column(server_default="0.25")
+    feedbacks_weight: Mapped[float] = mapped_column(server_default="0.15")
+    speed_weight: Mapped[float] = mapped_column(server_default="0.2")

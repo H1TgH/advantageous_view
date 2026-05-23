@@ -13,3 +13,6 @@ class ProductDTO:
     marketplace: str
     url: str
     score: float | None = None
+    delivery_days: int | None = None
+    delivery_price: int | None = None
+    delivery_free: bool | None = None

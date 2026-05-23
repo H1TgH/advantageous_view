@@ -58,7 +58,6 @@ def check_prices_task() -> None:
     from settings import settings
 
     async def _run() -> None:
-
         engine = create_async_engine(
             settings.db.database_url,
             poolclass=NullPool,
@@ -76,22 +75,19 @@ def check_prices_task() -> None:
                 wb_client=WBClient(),
                 ym_client=YandexMarketClient(),
             )
-            results = await service.run()
+            alerts = await service.run()
         finally:
             await engine.dispose()
 
-        if not results:
-            return
-
-        for item in results:
-            _sub_id, new_price, email, old_price, title, url, reason = item
-            send_price_alert_task.delay(
-                to_email=email,
-                product_title=title,
-                old_price=old_price,
-                new_price=new_price,
-                url=url,
-                reason=reason,
-            )
+        for alert in alerts:
+            if alert.notify_email:
+                send_price_alert_task.delay(
+                    to_email=alert.email,
+                    product_title=alert.title,
+                    old_price=alert.old_price,
+                    new_price=alert.new_price,
+                    url=alert.url,
+                    reason=alert.reason,
+                )
 
     asyncio.run(_run())

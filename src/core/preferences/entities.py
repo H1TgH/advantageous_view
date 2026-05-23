@@ -8,16 +8,18 @@ class UserPreferencesDTO:
     price_weight: float
     rating_weight: float
     feedbacks_weight: float
+    speed_weight: float = 0.2
 
     def normalized(self) -> "UserPreferencesDTO":
-        total = self.price_weight + self.rating_weight + self.feedbacks_weight
+        total = self.price_weight + self.rating_weight + self.feedbacks_weight + self.speed_weight
 
         if total == 0:
             return UserPreferencesDTO(
                 user_id=self.user_id,
-                price_weight=0.5,
+                price_weight=0.4,
                 rating_weight=0.25,
-                feedbacks_weight=0.25,
+                feedbacks_weight=0.15,
+                speed_weight=0.2,
             )
 
         return UserPreferencesDTO(
@@ -25,12 +27,14 @@ class UserPreferencesDTO:
             price_weight=self.price_weight / total,
             rating_weight=self.rating_weight / total,
             feedbacks_weight=self.feedbacks_weight / total,
+            speed_weight=self.speed_weight / total,
         )
 
 
 DEFAULT_PREFERENCES = UserPreferencesDTO(
     user_id=UUID(int=0),
-    price_weight=0.5,
-    rating_weight=0.3,
-    feedbacks_weight=0.2,
+    price_weight=0.4,
+    rating_weight=0.25,
+    feedbacks_weight=0.15,
+    speed_weight=0.2,
 )
