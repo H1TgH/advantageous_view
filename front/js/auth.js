@@ -1,168 +1,230 @@
-// Функция для обновления кнопки на "Войти"
+// js/auth.js - Управление авторизацией и токенами
+
+// Базовый URL API
+const API_BASE_URL = 'http://localhost:8000/api/v1';
+
+// ========== УПРАВЛЕНИЕ ТОКЕНАМИ ==========
+function saveTokens(accessToken, refreshToken) {
+    localStorage.setItem('access_token', accessToken);
+    localStorage.setItem('refresh_token', refreshToken);
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('loginTime', new Date().toISOString());
+}
+
+function getAccessToken() {
+    return localStorage.getItem('access_token');
+}
+
+function getRefreshToken() {
+    return localStorage.getItem('refresh_token');
+}
+
+function clearAuth() {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('username');
+    localStorage.removeItem('loginTime');
+}
+
+function isAuthenticated() {
+    return localStorage.getItem('isLoggedIn') === 'true' && !!getAccessToken();
+}
+
+function getUsername() {
+    return localStorage.getItem('username') || 'Пользователь';
+}
+
+// ========== API ЗАПРОСЫ ==========
+async function apiRequest(endpoint, method = 'GET', body = null, requireAuth = true) {
+    const headers = {
+        'Content-Type': 'application/json',
+    };
+    
+    if (requireAuth) {
+        const token = getAccessToken();
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+    }
+    
+    const config = {
+        method,
+        headers,
+    };
+    
+    if (body && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
+        config.body = JSON.stringify(body);
+    }
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
+        
+        if (response.status === 401 && requireAuth) {
+            const refreshed = await refreshAccessToken();
+            if (refreshed) {
+                return apiRequest(endpoint, method, body, requireAuth);
+            } else {
+                clearAuth();
+                window.location.href = './input.html';
+                return null;
+            }
+        }
+        
+        if (!response.ok) {
+            const error = await response.json().catch(() => ({}));
+            throw new Error(error.detail || `Ошибка ${response.status}`);
+        }
+        
+        if (response.status === 204) return null;
+        
+        return await response.json();
+    } catch (error) {
+        console.error('API Error:', error);
+        throw error;
+    }
+}
+
+// ========== ОБНОВЛЕНИЕ ТОКЕНА ==========
+async function refreshAccessToken() {
+    const refreshToken = getRefreshToken();
+    if (!refreshToken) return false;
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/users/refresh`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: refreshToken })
+        });
+        
+        if (!response.ok) {
+            clearAuth();
+            return false;
+        }
+        
+        const data = await response.json();
+        saveTokens(data.token, refreshToken);
+        return true;
+    } catch (error) {
+        console.error('Refresh error:', error);
+        clearAuth();
+        return false;
+    }
+}
+
+// ========== РЕГИСТРАЦИЯ ==========
+async function registerUser(userData) {
+    return await apiRequest('/users/register', 'POST', userData, false);
+}
+
+// ========== ВХОД ==========
+async function loginUser(credentials) {
+    const response = await apiRequest('/users/login', 'POST', credentials, false);
+    
+    if (response?.access_token && response?.refresh_token) {
+        saveTokens(response.access_token, response.refresh_token);
+        localStorage.setItem('username', credentials.email);
+        
+        const userProfile = {
+            email: credentials.email,
+            name: credentials.name || credentials.email.split('@')[0],
+            password: credentials.password
+        };
+        localStorage.setItem('userProfile', JSON.stringify(userProfile));
+        
+        return { success: true, data: response };
+    }
+    
+    return { success: false, message: 'Неверные данные входа' };
+}
+
+// ========== ВЫХОД ==========
+function logoutUser() {
+    clearAuth();
+    localStorage.removeItem('userProfile');
+    updateVisibilityByAuthStatus();
+    updateAuthButton();
+    window.location.href = './index.html';
+}
+
+// ========== ОБНОВЛЕНИЕ UI ==========
+function updateVisibilityByAuthStatus() {
+    const isLoggedIn = isAuthenticated();
+    
+    const navCompare = document.getElementById('compar');
+    const navTrack = document.getElementById('track');
+    const navHistory = document.getElementById('history');
+    const ctaSection = document.getElementById('ctasection');
+    
+    if (isLoggedIn) {
+        if (navCompare) navCompare.style.display = 'list-item';
+        if (navTrack) navTrack.style.display = 'list-item';
+        if (navHistory) navHistory.style.display = 'list-item';
+        if (ctaSection) ctaSection.style.display = 'none';
+    } else {
+        if (navCompare) navCompare.style.display = 'none';
+        if (navTrack) navTrack.style.display = 'none';
+        if (navHistory) navHistory.style.display = 'none';
+        if (ctaSection) ctaSection.style.display = 'block';
+    }
+}
+
 function updateButtonToLogin(buttonElement) {
-    buttonElement.innerHTML = '<img src="./img/input.png" style="height: 40px; width: 40px;">Войти ';
+    if (!buttonElement) return;
+    buttonElement.innerHTML = '<img src="./img/input.png" style="height: 40px; width: 40px;"> Войти';
     buttonElement.setAttribute('data-status', 'logged-out');
     buttonElement.title = "Войти в аккаунт";
 }
 
-// Функция для обновления кнопки на "Профиль"
+// ✅ ИСПРАВЛЕНО: Всегда показываем "Личный кабинет"
 function updateButtonToProfile(buttonElement) {
+    if (!buttonElement) return;
     buttonElement.innerHTML = '<img src="./img/white-search.png" style="height: 40px; width: 40px;"> Личный кабинет';
     buttonElement.setAttribute('data-status', 'logged-in');
     buttonElement.title = "Перейти в профиль";
 }
 
-// Проверяем статус авторизации
-function checkAuthStatus() {
-    return localStorage.getItem('isLoggedIn') === 'true';
-}
-
-// Получаем имя пользователя
-function getUsername() {
-    return localStorage.getItem('username') || 'Пользователь';
-}
-
-// Функция для обновления видимости элементов навигации и CTA блока
-function updateVisibilityByAuthStatus() {
-    const isLoggedIn = checkAuthStatus();
+function updateAuthButton() {
+    const button = document.getElementById('userAuthButton');
+    if (!button) return;
     
-    // Элементы навигации, которые показываются только авторизованным пользователям
-    const navCompare = document.getElementById('compar');
-    const navTrack = document.getElementById('track');
-    const navHistory = document.getElementById('history');
-    
-    // CTA блок (призыв зарегистрироваться/войти)
-    const ctaSection = document.getElementById('ctasection');
-    
-    if (isLoggedIn) {
-        // Пользователь авторизован - показываем дополнительные пункты меню
-        if (navCompare) navCompare.style.display = 'list-item';
-        if (navTrack) navTrack.style.display = 'list-item';
-        if (navHistory) navHistory.style.display = 'list-item';
-        
-        // Скрываем CTA блок
-        if (ctaSection) ctaSection.style.display = 'none';
+    if (isAuthenticated()) {
+        updateButtonToProfile(button);
     } else {
-        // Пользователь не авторизован - скрываем дополнительные пункты меню
-        if (navCompare) navCompare.style.display = 'none';
-        if (navTrack) navTrack.style.display = 'none';
-        if (navHistory) navHistory.style.display = 'none';
-        
-        // Показываем CTA блок
-        if (ctaSection) ctaSection.style.display = 'block';
-    }
-}
-
-// Инициализация кнопки авторизации
-function initAuthButton() {
-    const userAuthButton = document.getElementById('userAuthButton');
-    
-    if (!userAuthButton) {
-        console.log('Кнопка авторизации не найдена');
-        return;
+        updateButtonToLogin(button);
     }
     
-    const isLoggedIn = checkAuthStatus();
-    
-    if (isLoggedIn) {
-        updateButtonToProfile(userAuthButton);
-    } else {
-        updateButtonToLogin(userAuthButton);
-    }
-    
-    // Добавляем обработчик клика на кнопку
-    userAuthButton.addEventListener('click', function() {
-        const status = userAuthButton.getAttribute('data-status');
-        
-        if (status === 'logged-in') {
-            // Если авторизован - переход в профиль
+    button.onclick = function() {
+        if (isAuthenticated()) {
             window.location.href = './profile.html';
         } else {
-            // Если не авторизован - переход на страницу входа
             window.location.href = './input.html';
         }
-    });
-    
-    // Обновляем видимость элементов при инициализации
-    updateVisibilityByAuthStatus();
+    };
 }
 
-// Вход пользователя
-function loginUser(login, password) {
-    
-    if (login && password) {
-        // Сохраняем статус входа в localStorage
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('username', login);
-        localStorage.setItem('loginTime', new Date().toISOString());
-        
-        // === ДОБАВЛЯЕМ СОХРАНЕНИЕ ПРОФИЛЯ ===
-        const userProfile = {
-            name: login.split('@')[0] || 'Пользователь',  // берём имя из почты
-            email: login,
-            password: password,
-            createdAt: new Date().toISOString()
-        };
-        localStorage.setItem('userProfile', JSON.stringify(userProfile));
-        // ====================================
-        
-        // Обновляем видимость элементов после входа
-        updateVisibilityByAuthStatus();
-        
-        // Обновляем кнопку
-        const userAuthButton = document.getElementById('userAuthButton');
-        if (userAuthButton) {
-            updateButtonToProfile(userAuthButton);
-        }
-        
-        return { success: true, username: login };
-    } else {
-        return { success: false, message: 'Заполните все поля' };
-    }
-}
-
-// Выход пользователя
-function logoutUser() {
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('username');
-    localStorage.removeItem('loginTime');
-    
-    // Обновляем видимость элементов после выхода
-    updateVisibilityByAuthStatus();
-    
-    // Перенаправляем на главную страницу
-    window.location.href = './index.html';
-}
-
-// Проверка доступа к защищенным страницам
-function requireAuth(redirectTo = './input.html') {
-    if (!checkAuthStatus()) {
-        window.location.href = redirectTo;
-        return false;
-    }
-    return true;
-}
-
-// Инициализация при загрузке страницы
+// ========== ИНИЦИАЛИЗАЦИЯ ==========
 document.addEventListener('DOMContentLoaded', function() {
-    if (document.getElementById('userAuthButton')) {
-        initAuthButton();
-    }
+    updateAuthButton();
+    updateVisibilityByAuthStatus();
     
-    // Слушаем изменения localStorage для синхронизации между вкладками
-    window.addEventListener('storage', function(event) {
-        if (event.key === 'isLoggedIn') {
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'isLoggedIn' || e.key === 'access_token' || e.key === 'userProfile') {
+            updateAuthButton();
             updateVisibilityByAuthStatus();
-            
-            // Обновляем кнопку
-            const userAuthButton = document.getElementById('userAuthButton');
-            if (userAuthButton) {
-                if (checkAuthStatus()) {
-                    updateButtonToProfile(userAuthButton);
-                } else {
-                    updateButtonToLogin(userAuthButton);
-                }
-            }
         }
     });
 });
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        apiRequest,
+        registerUser,
+        loginUser,
+        logoutUser,
+        isAuthenticated,
+        getUsername,
+        updateVisibilityByAuthStatus,
+        updateAuthButton
+    };
+}

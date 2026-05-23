@@ -1,7 +1,8 @@
 from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from typing import Optional  # ← ДОБАВИТЬ
 
-
+# Глобальный конфиг (опционально, можно убрать)
 BaseSettings.model_config = SettingsConfigDict(
     env_file=".env",
     env_file_encoding="utf-8",
@@ -28,6 +29,8 @@ class SecuritySettings(BaseSettings):
     algorithm: str
     access_ttl: int = Field(alias="ACCESS_TOKEN_EXPIRE_MINUTES")
     refresh_ttl: int = Field(alias="REFRESH_TOKEN_EXPIRE_DAYS")
+    
+    model_config = SettingsConfigDict(env_prefix="")  # ← важно для alias
 
 
 class SMTPSettings(BaseSettings):
@@ -56,7 +59,17 @@ class Settings(BaseSettings):
     security: SecuritySettings = Field(default_factory=SecuritySettings)
     smtp: SMTPSettings = Field(default_factory=SMTPSettings)
     redis: RedisSettings = Field(default_factory=RedisSettings)
-    apisystem_key: str = Field(alias="APISYSTEM_KEY")
+    
+    # 🔑 ИСПРАВЛЕНО: Optional + default="" + alias
+    apisystem_key: Optional[str] = Field(default="", alias="APISYSTEM_KEY")
+    
+    # 🔑 ДОБАВЛЕНО: конфиг для чтения .env
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=False,
+        extra="ignore"
+    )
 
 
 settings = Settings()
