@@ -1,10 +1,11 @@
 import asyncio
 from datetime import UTC, datetime, timedelta
+from uuid import UUID
 
 import bcrypt
 from jose import ExpiredSignatureError, JWTError, jwt
 
-from core.users.entities import AuthUserDTO, LoginTokensDTO, UserCreationDTO, UserLoginDTO, UserModelDTO
+from core.users.entities import AuthUserDTO, LoginTokensDTO, UserCreationDTO, UserLoginDTO, UserModelDTO, UserReadDTO
 from core.users.exceptions import (
     InvalidCredentialsException,
     InvalidTokenException,
@@ -119,6 +120,12 @@ class UserService:
         payload = self._verify_token(token, token_type)
         return payload.get("sub")
 
+    async def get_me(self, user_id: UUID) -> UserReadDTO:
+        async with self.uow() as session:
+            repo = UserRepository(session)
+            user = await self._get_by_id_or_raise(repo, user_id)
+            return UserReadDTO(id=user.id, name=user.name, email=user.email)
+
     async def get_current_user(self, token: str) -> AuthUserDTO:
         async with self.uow() as session:
             repo = UserRepository(session)
@@ -132,7 +139,7 @@ class UserService:
         return dto
 
     @staticmethod
-    async def _get_by_id_or_raise(repo: UserRepository, user_id) -> UserModelDTO:
+    async def _get_by_id_or_raise(repo: UserRepository, user_id: UUID) -> UserModelDTO:
         user = await repo.get_by_id(user_id)
         if not user:
             raise UserDoesNotExistException("User does not exists")

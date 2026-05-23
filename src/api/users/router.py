@@ -1,14 +1,28 @@
 from fastapi import APIRouter, Depends, status
 
-from api.users.schemas import LoginResponseSchema, LoginSchema, RegistrationSchema, TokenSchema
-from core.users.entities import UserCreationDTO, UserLoginDTO
+from api.users.schemas import LoginResponseSchema, LoginSchema, RegistrationSchema, TokenSchema, UserMeSchema
+from core.users.entities import AuthUserDTO, UserCreationDTO, UserLoginDTO
 from core.users.services import UserService, get_user_service
+from dependencies import get_current_user
 
 
 users_router = APIRouter(
     prefix="/users",
     tags=["Users"],
 )
+
+
+@users_router.get(
+    "/me",
+    status_code=status.HTTP_200_OK,
+    response_model=UserMeSchema,
+)
+async def get_me(
+    current_user: AuthUserDTO = Depends(get_current_user),
+    service: UserService = Depends(get_user_service),
+) -> UserMeSchema:
+    user = await service.get_me(current_user.id)
+    return UserMeSchema(**vars(user))
 
 
 @users_router.post(

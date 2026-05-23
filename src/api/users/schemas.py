@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from pydantic import BaseModel, EmailStr
 
 
@@ -19,3 +21,9 @@ class LoginResponseSchema(BaseModel):
 
 class TokenSchema(BaseModel):
     token: str
+
+
+class UserMeSchema(BaseModel):
+    id: UUID
+    name: str
+    email: EmailStr
