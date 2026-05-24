@@ -1,4 +1,5 @@
 from fastapi import APIRouter, FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from api.favorites.router import favorites_router
 from api.notifications.router import notifications_router
@@ -23,3 +24,10 @@ api_v1_router.include_router(notifications_router)
 api_v1_router.include_router(feedback_router)
 
 app.include_router(api_v1_router)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
