@@ -2,6 +2,8 @@ import asyncio
 import logging
 from uuid import UUID
 
+from fastapi import Request
+
 from core.preferences.entities import DEFAULT_PREFERENCES, UserPreferencesDTO
 from core.preferences.services import UserPreferencesService
 from core.search.entities import ProductDTO
@@ -66,10 +68,10 @@ class SearchService:
         return await self._preferences_service.get(user_id)
 
 
-def get_search_service() -> SearchService:
+def get_search_service(request: Request) -> SearchService:
     return SearchService(
-        wb_client=WBClient(),
-        ym_client=YandexMarketClient(),
+        wb_client=request.app.state.wb_client,
+        ym_client=request.app.state.ym_client,
         preferences_service=UserPreferencesService(UnitOfWork()),
         history_service=SearchHistoryService(UnitOfWork()),
     )

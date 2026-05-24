@@ -16,6 +16,9 @@ class WBClient:
         self._client = httpx.AsyncClient(timeout=httpx.Timeout(10.0))
         self._api_key = settings.apisystem_key
 
+    async def close(self) -> None:
+        await self._client.aclose()
+
     async def search(self, query: str, page: int = 1) -> list[ProductDTO]:
         resp = await self._client.get(
             self.BASE_URL,

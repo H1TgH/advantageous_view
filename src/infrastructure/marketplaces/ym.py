@@ -20,6 +20,9 @@ class YandexMarketClient:
             timeout=httpx.Timeout(10.0),
             headers={"Accept": "application/json"},
         )
+    
+    async def close(self) -> None:
+        await self._client.aclose()
 
     async def close(self) -> None:
         await self._client.aclose()
