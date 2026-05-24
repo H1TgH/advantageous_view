@@ -27,3 +27,8 @@ class UserMeSchema(BaseModel):
     id: UUID
     name: str
     email: EmailStr
+
+
+class UpdateMeSchema(BaseModel):
+    name: str
+    email: EmailStr

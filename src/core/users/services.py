@@ -5,7 +5,7 @@ from uuid import UUID
 import bcrypt
 from jose import ExpiredSignatureError, JWTError, jwt
 
-from core.users.entities import AuthUserDTO, LoginTokensDTO, UserCreationDTO, UserLoginDTO, UserModelDTO, UserReadDTO
+from core.users.entities import AuthUserDTO, LoginTokensDTO, UpdateUserDTO, UserCreationDTO, UserLoginDTO, UserModelDTO, UserReadDTO
 from core.users.exceptions import (
     InvalidCredentialsException,
     InvalidTokenException,
@@ -137,6 +137,17 @@ class UserService:
             )
 
         return dto
+    
+    async def update_me(self, user_id: UUID, dto: UpdateUserDTO) -> UserReadDTO:
+        async with self.uow() as session:
+            repo = UserRepository(session)
+            existing = await repo.get_by_email(dto.email)
+            if existing and existing.id != user_id:
+                raise UserAlreadyExistsException("Email already in use")
+            user = await repo.update(user_id, dto)
+            if not user:
+                raise UserDoesNotExistException("User does not exist")
+            return UserReadDTO(id=user.id, name=user.name, email=user.email)
 
     @staticmethod
     async def _get_by_id_or_raise(repo: UserRepository, user_id: UUID) -> UserModelDTO:

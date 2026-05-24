@@ -55,6 +55,12 @@ class UserLoginDTO:
 
 
 @dataclass
+class UpdateUserDTO:
+    name: str
+    email: str
+
+
+@dataclass
 class LoginTokensDTO:
     access_token: str
     refresh_token: str

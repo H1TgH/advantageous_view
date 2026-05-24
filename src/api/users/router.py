@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, status
 
-from api.users.schemas import LoginResponseSchema, LoginSchema, RegistrationSchema, TokenSchema, UserMeSchema
-from core.users.entities import AuthUserDTO, UserCreationDTO, UserLoginDTO
+from api.users.schemas import LoginResponseSchema, LoginSchema, RegistrationSchema, TokenSchema, UpdateMeSchema, UserMeSchema
+from core.users.entities import AuthUserDTO, UpdateUserDTO, UserCreationDTO, UserLoginDTO
 from core.users.services import UserService, get_user_service
 from dependencies import get_current_user
 
@@ -69,3 +69,17 @@ async def refresh(
     new_token = service.refresh(token.token)
 
     return TokenSchema(token=new_token)
+
+
+@users_router.patch(
+    "/me",
+    status_code=status.HTTP_200_OK,
+    response_model=UserMeSchema,
+)
+async def update_me(
+    data: UpdateMeSchema,
+    current_user: AuthUserDTO = Depends(get_current_user),
+    service: UserService = Depends(get_user_service),
+) -> UserMeSchema:
+    user = await service.update_me(current_user.id, UpdateUserDTO(**data.model_dump()))
+    return UserMeSchema(**vars(user))
