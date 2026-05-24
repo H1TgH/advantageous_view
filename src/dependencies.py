@@ -25,3 +25,14 @@ async def get_current_user(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=str(e)
         ) from e
+
+async def get_optional_user(
+    credentials: HTTPAuthorizationCredentials | None = Depends(HTTPBearer(auto_error=False)),
+    auth_service: UserService = Depends(get_user_service),
+) -> AuthUserDTO | None:
+    if credentials is None:
+        return None
+    try:
+        return await auth_service.get_current_user(credentials.credentials)
+    except (InvalidTokenException, UserDoesNotExistException):
+        return None
