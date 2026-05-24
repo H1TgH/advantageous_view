@@ -98,7 +98,7 @@ class PriceTrackingRepository:
         stmt = (
             select(PriceHistoryModel)
             .where(PriceHistoryModel.subscription_id == subscription_id)
-            .order_by(PriceHistoryModel.created_at.desc())
+            .order_by(PriceHistoryModel.created_at.asc())
         )
         result = await self.session.execute(stmt)
         return [self._hist_to_dto(m) for m in result.scalars().all()]

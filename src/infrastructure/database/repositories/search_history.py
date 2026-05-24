@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from sqlalchemy import select
+from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.search_history.entities import SearchHistoryItemDTO
@@ -34,6 +34,5 @@ class SearchHistoryRepository:
         ]
 
     async def clear(self, user_id: UUID) -> None:
-        from sqlalchemy import delete
         stmt = delete(SearchHistoryModel).where(SearchHistoryModel.user_id == user_id)
         await self.session.execute(stmt)

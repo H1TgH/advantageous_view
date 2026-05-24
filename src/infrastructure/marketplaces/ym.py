@@ -24,9 +24,6 @@ class YandexMarketClient:
     async def close(self) -> None:
         await self._client.aclose()
 
-    async def close(self) -> None:
-        await self._client.aclose()
-
     async def search(self, query: str, page: int = 1) -> list[ProductDTO]:
         if not self._api_key:
             logger.warning("YM: APISYSTEM_KEY not set, skipping")
