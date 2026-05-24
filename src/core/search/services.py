@@ -12,6 +12,8 @@ from core.search_history.services import SearchHistoryService
 from infrastructure.database.uow import UnitOfWork
 from infrastructure.marketplaces.wb import WBClient
 from infrastructure.marketplaces.ym import YandexMarketClient
+from core.feedbacks.entities import SellerReliabilityDTO
+from core.feedbacks.services import FeedbackService
 
 
 logger = logging.getLogger(__name__)
@@ -24,12 +26,14 @@ class SearchService:
         ym_client: YandexMarketClient,
         preferences_service: UserPreferencesService,
         history_service: SearchHistoryService,
+        feedback_service: FeedbackService,
     ) -> None:
         self._wb = wb_client
         self._ym = ym_client
         self._preferences_service = preferences_service
         self._history_service = history_service
         self._ranker = ProductRanker()
+        self._feedback_service = feedback_service
 
     async def search(self, query: str, user_id: UUID | None = None) -> list[ProductDTO]:
         wb_task = asyncio.create_task(
@@ -48,6 +52,7 @@ class SearchService:
 
         preferences = await self._get_preferences(user_id)
         ranked = self._ranker.rank(products, preferences)
+        await self._enrich_reliability(ranked)
 
         if user_id:
             await self._history_service.add(user_id, query)
@@ -67,6 +72,32 @@ class SearchService:
             return DEFAULT_PREFERENCES
         return await self._preferences_service.get(user_id)
 
+    async def _enrich_reliability(self, products: list[ProductDTO]) -> None:
+        unique_sellers = list({(p.seller, p.marketplace) for p in products if p.seller})
+        results = await asyncio.gather(
+            *[self._feedback_service.get_seller_reliability(s, m) for s, m in unique_sellers]
+        )
+        reliability_map = {unique_sellers[i]: results[i] for i in range(len(unique_sellers))}
+        for product in products:
+            dto = reliability_map.get((product.seller, product.marketplace))
+            if dto and dto.total_feedbacks > 0:
+                product.reliability = self._reliability_label(dto)
+
+    @staticmethod
+    def _reliability_label(dto: SellerReliabilityDTO) -> str:
+        if (
+            dto.avg_overall_rating >= 4.5
+            and dto.description_match_rate >= 0.8
+            and dto.delivery_accuracy_rate >= 0.8
+        ):
+            return "Высокая"
+        if (
+            dto.avg_overall_rating >= 3.5
+            or dto.description_match_rate >= 0.6
+            or dto.delivery_accuracy_rate >= 0.6
+        ):
+            return "Средняя"
+        return "Низкая"
 
 def get_search_service(request: Request) -> SearchService:
     return SearchService(
@@ -74,4 +105,5 @@ def get_search_service(request: Request) -> SearchService:
         ym_client=request.app.state.ym_client,
         preferences_service=UserPreferencesService(UnitOfWork()),
         history_service=SearchHistoryService(UnitOfWork()),
+        feedback_service=FeedbackService(UnitOfWork()),
     )

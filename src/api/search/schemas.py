@@ -15,7 +15,7 @@ class ProductSchema(BaseModel):
     delivery_days: int | None = None
     delivery_price: int | None = None
     delivery_free: bool | None = None
-
+    reliability: str | None = None
     @computed_field
     @property
     def total_price(self) -> float:
