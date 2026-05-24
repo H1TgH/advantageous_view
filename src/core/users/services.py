@@ -142,7 +142,7 @@ class UserService:
         async with self.uow() as session:
             repo = UserRepository(session)
             existing = await repo.get_by_email(dto.email)
-            if existing and existing.id != user_id:
+            if existing and str(existing.id) != str(user_id):
                 raise UserAlreadyExistsException("Email already in use")
             user = await repo.update(user_id, dto)
             if not user:

@@ -39,4 +39,5 @@ class UserRepository:
         model.name = dto.name
         model.email = dto.email
         await self.session.flush()
+        await self.session.refresh(model)
         return UserModelDTO.from_model(model)
