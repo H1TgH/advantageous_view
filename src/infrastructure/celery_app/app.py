@@ -25,4 +25,5 @@ celery_app.conf.update(
             "schedule": crontab(hour=0, minute=0),
         },
     },
+    worker_pool="prefork",
 )

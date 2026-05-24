@@ -80,12 +80,10 @@ class PriceCheckerService:
             repo = PriceTrackingRepository(session)
             last_price = await repo.get_last_price(sub.id)
 
-        if last_price is None:
-            async with self._uow() as session:
-                repo = PriceTrackingRepository(session)
+            if last_price is None:
                 await repo.add_price_history(sub.id, current_price)
-            logger.info("Первая запись цены для подписки %s: %.0f ₽", sub.id, current_price)
-            return None
+                logger.info("Первая запись цены для подписки %s: %.0f ₽", sub.id, current_price)
+                return None
 
         reason = self._should_notify(sub, current_price, last_price)
         if reason is None:

@@ -22,7 +22,6 @@ async def search(
     query: str,
     current_user: AuthUserDTO = Depends(get_current_user),
     service: SearchService = Depends(get_search_service),
-    user_service: UserService = Depends(get_user_service),
 ) -> list[ProductSchema]:
     products = await service.search(query, user_id=current_user.id)
 
