@@ -36,3 +36,16 @@ class SearchHistoryRepository:
     async def clear(self, user_id: UUID) -> None:
         stmt = delete(SearchHistoryModel).where(SearchHistoryModel.user_id == user_id)
         await self.session.execute(stmt)
+
+
+    async def delete_by_id(self, item_id: UUID, user_id: UUID) -> bool:
+        stmt = select(SearchHistoryModel).where(
+            SearchHistoryModel.id == item_id,
+            SearchHistoryModel.user_id == user_id,
+        )
+        result = await self.session.execute(stmt)
+        model = result.scalar_one_or_none()
+        if not model:
+            return False
+        await self.session.delete(model)
+        return True

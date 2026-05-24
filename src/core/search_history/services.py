@@ -24,6 +24,11 @@ class SearchHistoryService:
             repo = SearchHistoryRepository(session)
             await repo.clear(user_id)
 
+    async def delete(self, item_id: UUID, user_id: UUID) -> bool:
+        async with self._uow() as session:
+            repo = SearchHistoryRepository(session)
+            return await repo.delete_by_id(item_id, user_id)
+
 
 def get_search_history_service() -> SearchHistoryService:
     return SearchHistoryService(UnitOfWork())

@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends, status
+from uuid import UUID
+
+from fastapi import APIRouter, Depends, HTTPException, status
 
 from api.search_history.schemas import SearchHistoryItemSchema
 from core.search_history.services import SearchHistoryService, get_search_history_service
@@ -41,3 +43,17 @@ async def clear_search_history(
     service: SearchHistoryService = Depends(get_search_history_service),
 ) -> None:
     await service.clear(current_user.id)
+
+
+@search_history_router.delete(
+    "/{item_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+async def delete_search_history_item(
+    item_id: UUID,
+    current_user: AuthUserDTO = Depends(get_current_user),
+    service: SearchHistoryService = Depends(get_search_history_service),
+) -> None:
+    found = await service.delete(item_id, current_user.id)
+    if not found:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
