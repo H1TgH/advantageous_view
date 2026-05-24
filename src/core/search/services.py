@@ -53,6 +53,7 @@ class SearchService:
         preferences = await self._get_preferences(user_id)
         ranked = self._ranker.rank(products, preferences)
         await self._enrich_reliability(ranked)
+        self._assign_badges(ranked)
 
         if user_id:
             await self._history_service.add(user_id, query)
@@ -98,6 +99,24 @@ class SearchService:
         ):
             return "Средняя"
         return "Низкая"
+    
+    @staticmethod
+    def _assign_badges(products: list[ProductDTO]) -> None:
+        if not products:
+            return
+
+        for p in products:
+            p.badges = []
+
+        products[0].badges.append("Лучшее предложение")
+
+        cheapest = min(products, key=lambda p: p.price + (p.delivery_price or 0))
+        cheapest.badges.append("Самый дешёвый")
+
+        with_delivery = [p for p in products if p.delivery_days is not None]
+        if with_delivery:
+            fastest = min(with_delivery, key=lambda p: p.delivery_days)
+            fastest.badges.append("Быстрая доставка")
 
 def get_search_service(request: Request) -> SearchService:
     return SearchService(

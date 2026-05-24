@@ -17,3 +17,4 @@ class ProductDTO:
     delivery_price: int | None = None
     delivery_free: bool | None = None
     reliability: str | None = None
+    badges: list[str] | None = None
