@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, computed_field
 
 
 class ProductSchema(BaseModel):
@@ -15,3 +15,8 @@ class ProductSchema(BaseModel):
     delivery_days: int | None = None
     delivery_price: int | None = None
     delivery_free: bool | None = None
+
+    @computed_field
+    @property
+    def total_price(self) -> float:
+        return self.price + (self.delivery_price or 0)
