@@ -3,9 +3,13 @@ from datetime import date
 
 import httpx
 from dateutil import parser as date_parser
+import logging
 
 from core.search.entities import ProductDTO
 from settings import settings
+
+
+logger = logging.getLogger(__name__)
 
 
 class WBClient:
@@ -32,6 +36,11 @@ class WBClient:
         )
         resp.raise_for_status()
         data = resp.json()
+        logger.warning("WB raw response keys: %s, status: %s, offers count: %s", 
+                    list(data.keys()), data.get("status"), len(data.get("offers") or []))
+        if data.get("status") != "OK":
+            logger.warning("WB returned non-OK status: %s", data.get("status"))
+            return []
         offers = data.get("offers") or []
         return [self._map_offer(o) for o in offers]
 
@@ -46,6 +55,7 @@ class WBClient:
         )
         resp.raise_for_status()
         data = resp.json()
+        logger.debug("WB raw response: %s", data)
 
         if data.get("status") != "OK":
             return []
