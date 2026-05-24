@@ -22,7 +22,7 @@ class UserModelDTO:
     updated_at: datetime
 
     @classmethod
-    def from_model(cls, user: UserModel | None) -> "UserModelDTO":
+    def from_model(cls, user: UserModel | None) -> "UserModelDTO | None":
         return cls(
             id=user.id,
             email=user.email,
