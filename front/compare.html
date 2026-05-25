@@ -4,176 +4,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style1.css" />
-    <link rel="stylesheet" href="./css/card.css" />
+
     <title>Выгодный взгляд</title>
+
+    <link rel="stylesheet" href="./css/style_main.css">
+    <link rel="stylesheet" href="./css/compare.css">
+    <link rel="stylesheet" href="./css/card.css">
 </head>
 
 <body data-page="search">
+
+    <!-- HEADER -->
+
     <header class="header">
+
         <div class="header-container">
+
             <a href="index.html" class="header_logo">
-                <img class="header_logo-image" src="./img/logo.svg" alt="Логотип проекта">
+                <img class="header_logo-image" src="./img/logo.svg" alt="Логотип">
             </a>
+
             <div class="header_content_menu">
+
                 <nav class="header__menu">
+
                     <ul class="header__links-list">
-                        <li class="header__links-list-item_no-bullit">
-                            <a class="header__link_active" href="compare.html">Поиск</a>
+
+                        <!-- ПОИСК -->
+                        <li class="header__links-list-item_no-bullit" id="compar">
+                            <a class="header__link_active" href="compare.html">
+                                Поиск
+                            </a>
                         </li>
-                        <li class="hader__linkes-list-item">
-                            <a class="header__link" href="monitoring.html">Отслеживание цен</a>
+
+                        <!-- ОТСЛЕЖИВАНИЕ -->
+                        <li class="header__links-list-item_no-bullit" id="track">
+                            <a class="header__link" href="monitoring.html">
+                                Отслеживание цен
+                            </a>
                         </li>
-                        <li class="hader__linkes-list-item">
-                            <a class="header__link" href="search_history.html">История поиска</a>
+
+                        <!-- ИСТОРИЯ -->
+                        <li class="header__links-list-item_no-bullit" id="history">
+                            <a class="header__link" href="search_history.html">
+                                История поиска
+                            </a>
                         </li>
+
                     </ul>
+
                 </nav>
+
             </div>
+
             <div class="user-profile">
-                <img src="./img/message.svg" class="message-icon">
+
+                <img src="./img/message.svg" class="message-icon" alt="">
+
                 <a href="profile.html" class="profile-button">
-                    <img src="./img/search.svg" class="header__search-icon" alt="Икона поиска">
+
+                    <img src="./img/search.svg" class="header__search-icon" alt="">
+
                     <span>Личный кабинет</span>
+
                 </a>
+
             </div>
+
         </div>
+
     </header>
+
+    <!-- MAIN -->
+
     <main class="main">
+
+        <!-- SEARCH -->
+
         <section class="search-section">
+
             <div class="search-container">
-                <img src="./img/search_2.svg" class="main__search-icon" alt="Икона поиска">
-                <input type="text" class="search-input" placeholder="iPhone 15 128GB черный">
-                <button class="search-button">Найти</button>
+
+                <img src="./img/search_2.svg" class="main__search-icon" alt="">
+
+                <input type="text" id="searchInput" class="search-input" placeholder="iPhone 15 128GB черный">
+
+                <button id="searchButton" class="search-button">
+                    Найти
+                </button>
+
             </div>
+
         </section>
+
+        <!-- FILTERS -->
 
         <section class="filters-section">
+
             <div class="filters-container">
+
+                <!-- LEFT -->
+
                 <div class="filters-left">
-                    <span class="filter-label">Фильтры:</span>
+
+                    <span class="filter-label">
+                        Фильтры:
+                    </span>
+
+                    <!-- PRICE -->
 
                     <details class="dropdown">
-                        <summary class="dropdown-title">По цене</summary>
+
+                        <summary class="dropdown-title">
+                            По цене
+                        </summary>
+
                         <div class="dropdown-content price-filter">
-                            <input type="number" placeholder="От">
-                            <input type="number" placeholder="До">
+
+                            <input type="number" id="priceFrom" placeholder="От">
+
+                            <input type="number" id="priceTo" placeholder="До">
+
                         </div>
+
                     </details>
 
+                    <!-- DELIVERY -->
+
                     <details class="dropdown">
-                        <summary class="dropdown-title">По скорости доставки</summary>
+
+                        <summary class="dropdown-title">
+                            По скорости доставки
+                        </summary>
+
                         <ul class="dropdown-content">
-                            <li><label><input type="radio" name="speed"> До 3 дней</label></li>
-                            <li><label><input type="radio" name="speed"> До недели</label></li>
-                            <li><label><input type="radio" name="speed"> Больше недели</label></li>
+
+                            <li>
+                                <label>
+                                    <input type="radio" name="speed" value="3">
+                                    До 3 дней
+                                </label>
+                            </li>
+
+                            <li>
+                                <label>
+                                    <input type="radio" name="speed" value="7">
+                                    До недели
+                                </label>
+                            </li>
+
+                            <li>
+                                <label>
+                                    <input type="radio" name="speed" value="999">
+                                    Больше недели
+                                </label>
+                            </li>
+
                         </ul>
+
                     </details>
+
+                    <!-- FREE DELIVERY -->
 
                     <label class="checkbox-container">
-                        <input type="checkbox">
-                        <span class="checkbox-text">Бесплатная доставка</span>
+
+                        <input type="checkbox" id="freeDelivery">
+
+                        <span class="checkbox-text">
+                            Бесплатная доставка
+                        </span>
+
                     </label>
+
                 </div>
+
+                <!-- RIGHT -->
 
                 <div class="filters-right">
-                    <span class="filter-label">Сортировка:</span>
+
+                    <span class="filter-label">
+                        Сортировка:
+                    </span>
+
                     <details class="dropdown">
-                        <summary class="dropdown-title">По вашим предпочтениям</summary>
-                        <ul class="dropdown-content">
-                            <li>По цене</li>
-                            <li>По сроку доставки</li>
-                            <li>По рейтингу</li>
+
+                        <summary class="dropdown-title">
+                            Выберите сортировку
+                        </summary>
+
+                        <ul class="dropdown-content sort-list">
+
+                            <li data-sort="score">
+                                По рекомендациям
+                            </li>
+
+                            <li data-sort="price">
+                                По цене
+                            </li>
+
+                            <li data-sort="delivery">
+                                По доставке
+                            </li>
+
+                            <li data-sort="rating">
+                                По рейтингу
+                            </li>
+
                         </ul>
+
                     </details>
+
                 </div>
+
             </div>
+
         </section>
 
-        <div class="recommendation-banner">
+        <!-- RECOMMEND -->
+
+        <div id="recommendBanner" class="recommendation-banner">
+
             <div class="banner-content">
-                <span class="check-icon">✔</span>
+
+                <span class="check-icon">
+                    ✔
+                </span>
+
                 <div class="banner-text">
-                    <strong>РЕКОМЕНДУЕМ</strong>
-                    <p>Это лучшие предложения по вашему профилю!</p>
+
+                    <strong>
+                        РЕКОМЕНДУЕМ
+                    </strong>
+
+                    <p>
+                        Это лучшие предложения по вашему профилю!
+                    </p>
+
                 </div>
-                <a href="#" class="setup-link">Настроить профиль →</a>
+
+                <a href="#" class="setup-link">
+                    Настроить профиль →
+                </a>
+
             </div>
+
         </div>
-        <section class="results-section">
+
+        <!-- LOADER -->
+
+        <section id="loaderSection" class="loader-section" style="display: none;">
+
+            <div class="loader">
+                Идет поиск товаров...
+            </div>
+
+        </section>
+
+        <!-- EMPTY -->
+
+        <section id="emptySection" class="empty-section">
+
+            <div class="empty-box">
+
+                <h2>
+                    Начните поиск товара
+                </h2>
+
+                <p>
+                    Введите запрос и система покажет лучшие предложения
+                    с маркетплейсов
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- RESULTS -->
+
+        <section id="resultsSection" class="results-section" style="display: none;">
+
             <table class="offers-table">
+
                 <thead>
-                    <tr>
-                        <th>Площадка</th>
-                        <th>Продавец</th>
-                        <th>Цена</th>
-                        <th>Доставка</th>
-                        <th>Рейтинг</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><img src="./img/ozon.png" alt="Ozon" class="market-logo"></td>
-                        <td>
-                            <div class="seller-info">
-                                <span class="seller-name">Phone Store</span>
-                                <span class="seller-rating">⭐ 4.7</span>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="price-block">
-                                <span class="price-value">64 990 ₽</span>
-                                <span class="price-badge low-price">Низкая цена</span>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="delivery-info">
-                                <span class="delivery-date">Послезавтра</span>
-                                <span class="delivery-status free">Бесплатно</span>
-                            </div>
-                        </td>
-                        <td><span class="total-rating">⭐ 4.9</span></td>
-                        <td>
-                            <div class="action-block">
-                                <a href="#" class="details-button" onclick="openModal(); return false;">Подробнее →</a>
-                                <a href="#" class="market-link">Перейти на страницу площадки</a>
-                            </div>
-                        </td>
-                    </tr>
 
                     <tr>
-                        <td><img src="./img/wildberries.png" alt="Wildberries" class="market-logo"></td>
-                        <td>
-                            <div class="seller-info">
-                                <span class="seller-name">Apple Shop</span>
-                                <span class="seller-rating">⭐ 4.7</span>
-                            </div>
-                        </td>
-                        <td><span class="price-value">70 500 ₽</span></td>
-                        <td>
-                            <div class="delivery-info">
-                                <span class="delivery-date">Послезавтра</span>
-                                <span class="delivery-status free">Бесплатно</span>
-                                <span class="delivery-badge fast">Быстрая доставка</span>
-                            </div>
-                        </td>
-                        <td><span class="total-rating">⭐ 4.8</span></td>
-                        <td>
-                            <div class="action-block">
-                                <a href="#" class="details-button" onclick="openModal(); return false;">Подробнее →</a>
-                                <a href="#" class="market-link">Перейти на страницу площадки</a>
-                            </div>
-                        </td>
+
+                        <th>
+                            Площадка
+                        </th>
+
+                        <th>
+                            Продавец
+                        </th>
+
+                        <th>
+                            Цена
+                        </th>
+
+                        <th>
+                            Доставка
+                        </th>
+
+                        <th>
+                            Рейтинг
+                        </th>
+
+                        <th>
+                            Действие
+                        </th>
+
                     </tr>
+
+                </thead>
+
+                <tbody id="offersTableBody">
+
+                    <!-- СЮДА JS ДОБАВИТ ТОВАРЫ -->
+
                 </tbody>
+
             </table>
+
         </section>
+
     </main>
+
+    <!-- FOOTER -->
+
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-logo">
-                <a href="index.html"><img src="./img/logo.svg" alt="Выгодный Взгляд" class="footer-logo-image"></a>
+                <a href="./index.html"><img src="./img/logo.svg" alt="Выгодный Взгляд" class="footer-logo-image"></a>
             </div>
 
             <div class="footer-info">
@@ -190,100 +351,38 @@
             </div>
         </div>
     </footer>
+
+
+    <!-- MODAL -->
+
     <div id="modal-overlay" class="modal-overlay">
+
         <div class="modal-container">
-            <button class="modal-close" onclick="closeModal()">×</button>
 
-            <div class="modal-content">
-                <!-- КОЛОНКА 1: Изображение и Отзывы -->
-                <div class="modal-col-left">
-                    <img src="./img/product.png" alt="iPhone 15" class="modal-product-img">
+            <button class="modal-close" id="closeModalButton">
+                ×
+            </button>
 
-                    <div class="analysis-reviews">
-                        <h3 class="analysis-title">Анализ отзывов</h3>
-                        <p class="analysis-subtitle">Ключевые характеристики на основе отзывов на страницах
-                            маркетплейсов.</p>
-                        <div class="review-badges">
-                            <div class="badge-row">
-                                <span>Качество товара:</span>
-                                <span class="badge">хорошее</span>
-                            </div>
-                            <div class="badge-row">
-                                <span>Доставка:</span>
-                                <span class="badge">быстрая</span>
-                            </div>
-                            <div class="badge-row">
-                                <span>Соответствие описанию:</span>
-                                <span class="badge">соответствует</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div id="modalContent" class="modal-content">
 
-                <!-- КОЛОНКА 2: Основная инфо -->
-                <div class="modal-col-center">
-                    <h2 class="modal-title">iPhone 15 128GB черный</h2>
-                    <div class="modal-rating">
-                        <span class="rating-value">⭐ 4,7</span>
-                        <span class="reviews-count">188 отзывов</span>
-                    </div>
+                <!-- JS -->
 
-                    <div class="modal-info-details">
-                        <p class="delivery-text">Доставка : 399 р.</p>
-                        <p class="info-label">Основная информация :</p>
-                        <div class="specs-box">
-                            Цвет: черный;<br>
-                            Память: 128 GB;<br>
-                            Гарантия: 1 год;<br>
-                            Состояние: новый.
-                        </div>
-                        <div class="seller-line">
-                            <span>Продавец:</span>
-                            <div class="seller-brand">
-                                <img src="./img/seller.svg" alt="" class="shop-icon" width="20">
-                                <div class="seller-details">
-                                    <span class="seller-name">Айстар Бутик</span>
-                                    <span class="seller-rating">
-                                        ⭐ <span class="rating-value">4.7</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <button id="favBtn" class="add-to-fav" onclick="toggleFavorite()">
-                            <span class="heart-icon">♡</span> <span class="btn-text">Добавить в избранное</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- КОЛОНКА 3: График и Кнопки -->
-                <div class="modal-col-right">
-                    <div class="price-analysis-card">
-                        <h3>Анализ цены</h3>
-                        <div class="chart-wrapper">
-                            <canvas id="priceChart"></canvas>
-                        </div>
-                        <div class="price-summary">
-                            <p class="p-old">68 990 ₽</p>
-                            <p class="p-delivery">Доставка: 399 р.</p>
-                            <p class="p-total">Итог: 69 389 ₽</p>
-                            <div class="market-tag">
-                                <img src="./img/yandex.png" alt="Маркет" width="100" height="30">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-main-actions">
-                        <button class="btn-buy">Купить на маркетплейсе</button>
-                        <button class="btn-monitor" data-product-id="iphone15">
-                            Мониторить цену
-                        </button>
-                    </div>
-                </div>
             </div>
+
         </div>
+
     </div>
-    <script src="script.js"></script>
-    <script src="script_card.js"></script>
+
+    <!-- SCRIPTS -->
+
+    <script src="./js/auth.js"></script>
+
+    <script src="./js/search.js"></script>
+
+    <script src="./js/script_card.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </body>
+
 </html>

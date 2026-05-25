@@ -1,12 +1,20 @@
 .main {
-    width: 95%;
-    margin: 55px auto;
+    width: 75%;
+    margin: 5em auto;
     background-color: #ffffff;
+    
 
 }
 
-.main-title { font-size: 32px; margin-bottom: 8px; }
-.main-subtitle { color: #666; margin-bottom: 30px; }
+.main-title { 
+    font-size: 32px; 
+    margin-bottom: 8px; 
+}
+
+.main-subtitle { 
+    color: #666; 
+    margin-bottom: 30px; 
+}
 
 .monitoring-card {
     background: white;
@@ -18,14 +26,33 @@
     gap: 30px;
 }
 
-.product-img { width: 80px; height: 80px; object-fit: contain; }
+.product-img { 
+    width: 80px; 
+    height: 80px; 
+    object-fit: contain; 
+}
 
-.product-info { flex: 1; }
-.product-name { font-size: 18px; margin-bottom: 5px; }
-.current-price { color: #333; }
+.product-info { 
+    flex: 1; 
+}
+
+.product-name { 
+    font-size: 18px; 
+    margin-bottom: 5px; 
+}
+
+.current-price { 
+    color: #333; 
+}
 
 /* Стилизация слайдера */
-.price-setting { display: flex; flex-direction: column; gap: 8px; min-width: 200px; }
+.price-setting { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 8px; 
+    min-width: 200px; 
+}
+
 .price-slider { 
     width: 100%; 
     accent-color: #0F3C85; /* Синий цвет ползунка */
@@ -36,7 +63,12 @@
 }
 
 /* Уведомления */
-.notify-buttons { display: flex; gap: 8px; margin-top: 5px; }
+.notify-buttons { 
+    display: flex; 
+    gap: 8px; 
+    margin-top: 5px; 
+}
+
 .notify-btn {
     border: 1px solid #0F3C85;
     background: white;
@@ -45,19 +77,59 @@
     cursor: pointer;
     font-size: 12px;
 }
-.notify-btn.active { background: #0F3C85; color: white; }
+
+.notify-btn.active { 
+    background: #0F3C85; 
+    color: white; 
+}
 
 /* Маркетплейс и кнопка */
-.market-info { display: flex; flex-direction: column; align-items: center; gap: 10px;     margin-right: 3em;}
-.market-logo { width: 100px; }
-.details-link { background: #0F3C85; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px; }
+.market-info { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 10px;    
+    margin-right: 3em;
+}
+
+.market-logo { 
+    width: 100px; 
+}
+
+.details-link { 
+    background: #0F3C85; 
+    color: white; 
+    padding: 8px 16px; 
+    border-radius: 6px; 
+    text-decoration: none; 
+    font-size: 14px; 
+}
+
 
 /* Кнопка удаления */
-.delete-btn { border: none; background: transparent; font-size: 24px; cursor: pointer; color: #999; }
+.delete-btn { 
+    border: none; 
+    background: transparent; 
+    font-size: 24px; 
+    cursor: pointer; 
+    color: #999; 
+}
+
 .monitoring-card {
     position: relative; 
 }
 
+.details-button {
+    background-color: #0F3C85;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background 0.2s;
+}
 /* Контейнер для меню (три точки) */
 .menu-container {
     position: absolute;
@@ -107,4 +179,6 @@
     text-align: left;
 }
 
-.delete-item-btn:hover { background: #f9f9f9; }
+.delete-item-btn:hover { 
+    background: #f9f9f9; 
+}

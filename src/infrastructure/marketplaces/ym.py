@@ -2,6 +2,8 @@ import logging
 import re
 
 import httpx
+from datetime import date
+from dateutil import parser as date_parser
 
 from core.search.entities import ProductDTO
 from settings import settings
@@ -20,7 +22,7 @@ class YandexMarketClient:
             timeout=httpx.Timeout(10.0),
             headers={"Accept": "application/json"},
         )
-
+    
     async def close(self) -> None:
         await self._client.aclose()
 
@@ -87,6 +89,34 @@ class YandexMarketClient:
         return float(match.group(1)) if match else 0.0
 
     @staticmethod
+    def _parse_delivery_days(raw: str | None) -> int | None:
+        if not raw:
+            return None
+
+        text = raw.strip().lower()
+
+        if text == "сегодня":
+            return 0
+        if text == "завтра":
+            return 1
+        if text == "послезавтра":
+            return 2
+
+        match = re.search(r"(\d+)\s*[-–—]?\s*(\d+)?\s*дн", text)
+        if match:
+            return int(match.group(1))
+
+        match = re.search(r"(\d+)\s*дн", text)
+        if match:
+            return int(match.group(1))
+
+        try:
+            delivery_date = date_parser.parse(raw, dayfirst=True).date()
+            return max((delivery_date - date.today()).days, 0)
+        except (ValueError, TypeError, OverflowError):
+            return None
+
+    @staticmethod
     def _parse_feedbacks(raw: str | None) -> int:
         if not raw:
             return 0
@@ -101,6 +131,11 @@ class YandexMarketClient:
     @classmethod
     def _map_offer(cls, o: dict) -> ProductDTO:
         rating_raw = o.get("product_rating")
+        raw_delivery_price = o.get("delivery_cost")
+        delivery_price = int(raw_delivery_price) if raw_delivery_price is not None else None
+        delivery_free = delivery_price == 0 if delivery_price is not None else None
+        delivery_days = cls._parse_delivery_days(o.get("delivery_time"))
+
         return ProductDTO(
             id=str(o.get("market_sku") or o.get("offer_id") or ""),
             title=o.get("offer_name", ""),
@@ -111,4 +146,7 @@ class YandexMarketClient:
             seller=o.get("shop_name") or o.get("business_name") or "",
             marketplace="ym",
             url=o.get("url") or "",
+            delivery_days=delivery_days,
+            delivery_price=delivery_price,
+            delivery_free=delivery_free,
         )

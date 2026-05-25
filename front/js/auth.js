@@ -147,28 +147,52 @@ function logoutUser() {
     window.location.href = './index.html';
 }
 
-// ========== ОБНОВЛЕНИЕ UI ==========
 function updateVisibilityByAuthStatus() {
+
     const isLoggedIn = isAuthenticated();
-    
-    const navCompare = document.getElementById('compar');
+
     const navTrack = document.getElementById('track');
     const navHistory = document.getElementById('history');
-    const ctaSection = document.getElementById('ctasection');
-    
-    if (isLoggedIn) {
-        if (navCompare) navCompare.style.display = 'list-item';
-        if (navTrack) navTrack.style.display = 'list-item';
-        if (navHistory) navHistory.style.display = 'list-item';
-        if (ctaSection) ctaSection.style.display = 'none';
-    } else {
-        if (navCompare) navCompare.style.display = 'none';
-        if (navTrack) navTrack.style.display = 'none';
-        if (navHistory) navHistory.style.display = 'none';
-        if (ctaSection) ctaSection.style.display = 'block';
-    }
-}
 
+    const ctaSection = document.getElementById('ctasection');
+
+    // ПОИСК ВСЕГДА ДОСТУПЕН
+
+    if (isLoggedIn) {
+
+        // показываем приватные вкладки
+        if (navTrack) {
+            navTrack.style.display = 'list-item';
+        }
+
+        if (navHistory) {
+            navHistory.style.display = 'list-item';
+        }
+
+        // скрываем блок регистрации
+        if (ctaSection) {
+            ctaSection.style.display = 'none';
+        }
+
+    } else {
+
+        // скрываем приватные вкладки
+        if (navTrack) {
+            navTrack.style.display = 'none';
+        }
+
+        if (navHistory) {
+            navHistory.style.display = 'none';
+        }
+
+        // показываем CTA
+        if (ctaSection) {
+            ctaSection.style.display = 'block';
+        }
+
+    }
+
+}
 function updateButtonToLogin(buttonElement) {
     if (!buttonElement) return;
     buttonElement.innerHTML = '<img src="./img/input.png" style="height: 40px; width: 40px;"> Войти';

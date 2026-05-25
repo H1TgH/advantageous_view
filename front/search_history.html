@@ -4,22 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>История поиска — Выгодный взгляд</title>
+    <link rel="stylesheet" href="./css/style_main.css">
     <link rel="stylesheet" href="./css/style_history.css">
 </head>
 <body>
     
     <header class="header">
-        <div class="container">
-            <div class="logo"><a href="./index.html"><img class="logo-img" src="./img/logo.png" alt="logo"></div></a>
-            <nav class="nav">
-                <ul>
-                    <li id="search"><a href="./compare.html">Поиск</a></li>
-                    <li id="track"><a href="./monitoring.html">Отслеживание цен</a></li>
-                    <li id="history"><a href="#" class="active-page">История поиска</a></li>
-                </ul>
-            </nav>
-            <div class="buttom-input">
-                <button id="userAuthButton" class="buttom-input"></button>
+        <div class="header-container">
+            <a href="./index.html" class="header_logo">
+                <img class="header_logo-image" src="./img/logo.svg" alt="Логотип проекта">
+            </a>
+            <div class="header_content_menu">
+                <nav class="header__menu">
+                    <ul class="header__links-list">
+                        <li class="header__links-list-item_no-bullit">
+                            <a class="header__link" href="./compare.html">Поиск</a>
+                        </li>
+                        <li class="hader__linkes-list-item">
+                            <a class="header__link" href="./monitoring.html">Отслеживание цен</a>
+                        </li>
+                        <li class="hader__linkes-list-item">
+                            <a class="header__link_active" href="./search_history.html">История поиска</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="user-profile">
+                <img src="./img/message.svg" class="message-icon">
+                <a href="./profile.html" class="profile-button">
+                    <img src="./img/search.svg" class="header__search-icon" alt="Икона поиска">
+                    <span>Личный кабинет</span>
+                </a>
             </div>
         </div>
     </header>
@@ -40,12 +55,23 @@
     </section>
 
     <footer class="footer">
-        <div class="container">
-            <div class="logo"><a href="./index.html"><img class="logo-img" src="./img/logo.png" alt="logo"></div></a>
-            <p>«Выгодный Взгляд» трансформирует хаотичный процесс поиска в управляемый, основанный на данных выбор, где решение принимается 
-                не на эмоциях или случайности, а на четкой логике, соответствующей вашим личным критериям. Это дает пользователю 
-                чувство контроля, уверенности и реальную экономию ресурсов.</p>
-            <p>+7 999 999 99 99</p>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <a href="./index.html"><img src="./img/logo.svg" alt="Выгодный Взгляд" class="footer-logo-image"></a>
+            </div>
+
+            <div class="footer-info">
+                <p class="footer-text">
+                    «Выгодный Взгляд» трансформирует хаотичный процесс поиска в управляемый,
+                    основанный на данных выбор, где решение принимается не на эмоциях или случайности,
+                    а на четкой логике, соответствующей вашим личным критериям. Это дает пользователю
+                    чувство контроля, уверенности и реальную экономию ресурсов.
+                </p>
+            </div>
+
+            <div class="footer-contacts">
+                <a href="tel:+79999999999" class="footer-phone">+7 999 999 99 99</a>
+            </div>
         </div>
     </footer>
 
