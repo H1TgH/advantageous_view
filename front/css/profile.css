@@ -312,6 +312,31 @@ input:checked + .slider:before {
 .sub-text {
     line-height: 1.4;
 }
+.notification-settings{
+    margin-top: 1rem;
+}
+ Уведомления */
+.notify-buttons { 
+    display: flex; 
+    gap: 8px; 
+    margin-top: 5px; 
+}
+
+.notify-btn {
+    border: 1px solid #2d5aa3;
+    background: #447ad1;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #fbfbfb;
+}
+
+.notify-btn.active { 
+    background: #0F3C85; 
+    color: white; 
+}
+
 
 /* Кнопка выхода */
 .logout-section {

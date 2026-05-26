@@ -11,7 +11,7 @@
 </head>
 
 <body data-page="monitor">
-    
+
     <header class="header">
         <div class="header-container">
             <a href="./index.html" class="header_logo">
@@ -33,7 +33,9 @@
                 </nav>
             </div>
             <div class="user-profile">
-                <img src="./img/message.svg" class="message-icon">
+                <div class="notification-wrapper">
+                    <img src="./img/message.svg" class="message-icon">
+                </div>
                 <a href="./profile.html" class="profile-button">
                     <img src="./img/search.svg" class="header__search-icon" alt="Икона поиска">
                     <span>Личный кабинет</span>
@@ -57,18 +59,29 @@
                     </div>
 
                     <div class="price-setting">
-                        <label class="price-label">
-                            Целевая цена: <span class="price-value">65 000 ₽</span>
-                        </label>
-                        <input type="range" class="price-slider" min="10" max="750000" value="65000">
-                    </div>
-
-                    <div class="notification-settings">
-                        <span class="label">Уведомлять:</span>
-                        <div class="notify-buttons">
-                            <button class="notify-btn active">Выгодный взгляд</button>
-                            <button class="notify-btn">Email</button>
+                        <div class="input_price">
+                            <label class="price-label">
+                                Целевая цена:
+                            </label>
+    
+                            <input type="number" class="target-price-input" placeholder="Введите цену" value="65000">
                         </div>
+
+
+                        <div class="price-buttons">
+
+                            <button class="save-price-btn">
+                                Сохранить
+                            </button>
+
+                            <button class="cancel-price-btn">
+                                Отменить
+                            </button>
+
+                        </div>
+
+                        <p class="notification-info"></p>
+
                     </div>
 
                     <div class="market-info">
@@ -91,19 +104,30 @@
                         <p class="current-price">Текущая цена: <strong>69 990 ₽</strong></p>
                     </div>
 
-                    <div class="price-setting">
-                        <label class="price-label">
-                            Целевая цена: <span class="price-value">65 000 ₽</span>
-                        </label>
-                        <input type="range" class="price-slider" min="10" max="750000" value="65000">
-                    </div>
-
-                    <div class="notification-settings">
-                        <span class="label">Уведомлять:</span>
-                        <div class="notify-buttons">
-                            <button class="notify-btn active">Выгодный взгляд</button>
-                            <button class="notify-btn">Email</button>
+                      <div class="price-setting">
+                        <div class="input_price">
+                            <label class="price-label">
+                                Целевая цена:
+                            </label>
+    
+                            <input type="number" class="target-price-input" placeholder="Введите цену" value="65000">
                         </div>
+
+
+                        <div class="price-buttons">
+
+                            <button class="save-price-btn">
+                                Сохранить
+                            </button>
+
+                            <button class="cancel-price-btn">
+                                Отменить
+                            </button>
+
+                        </div>
+
+                        <p class="notification-info"></p>
+
                     </div>
 
                     <div class="market-info">
@@ -126,19 +150,30 @@
                         <p class="current-price">Текущая цена: <strong>69 990 ₽</strong></p>
                     </div>
 
-                    <div class="price-setting">
-                        <label class="price-label">
-                            Целевая цена: <span class="price-value">65 000 ₽</span>
-                        </label>
-                        <input type="range" class="price-slider" min="10" max="750000" value="65000">
-                    </div>
-
-                    <div class="notification-settings">
-                        <span class="label">Уведомлять:</span>
-                        <div class="notify-buttons">
-                            <button class="notify-btn active">Выгодный взгляд</button>
-                            <button class="notify-btn">Email</button>
+                     <div class="price-setting">
+                        <div class="input_price">
+                            <label class="price-label">
+                                Целевая цена:
+                            </label>
+    
+                            <input type="number" class="target-price-input" placeholder="Введите цену" value="65000">
                         </div>
+
+
+                        <div class="price-buttons">
+
+                            <button class="save-price-btn">
+                                Сохранить
+                            </button>
+
+                            <button class="cancel-price-btn">
+                                Отменить
+                            </button>
+
+                        </div>
+
+                        <p class="notification-info"></p>
+
                     </div>
 
                     <div class="market-info">
@@ -270,7 +305,7 @@
             </div>
         </div>
     </div>
-    <script src="./js/script.js"></script>
+    <script src="./js/monitoring.js"></script>
     <script src="./js/script_card.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
