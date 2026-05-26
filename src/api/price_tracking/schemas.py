@@ -11,6 +11,13 @@ class CreateSubscriptionSchema(BaseModel):
     marketplace: str = "wb"
     current_price: float
     target_price: float | None = None
+    notify_in_app: bool = True
+    notify_email: bool = False
+
+
+class UpdateSubscriptionNotificationsSchema(BaseModel):
+    notify_in_app: bool
+    notify_email: bool
 
 
 class PriceSubscriptionSchema(BaseModel):
@@ -21,6 +28,8 @@ class PriceSubscriptionSchema(BaseModel):
     marketplace: str
     target_price: float | None
     is_active: bool
+    notify_in_app: bool
+    notify_email: bool
     created_at: datetime
 
 

@@ -2,8 +2,13 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from api.price_tracking.schemas import CreateSubscriptionSchema, PriceHistoryItemSchema, PriceSubscriptionSchema
-from core.price_tracking.entities import CreateSubscriptionDTO
+from api.price_tracking.schemas import (
+    CreateSubscriptionSchema,
+    PriceHistoryItemSchema,
+    PriceSubscriptionSchema,
+    UpdateSubscriptionNotificationsSchema,
+)
+from core.price_tracking.entities import CreateSubscriptionDTO, UpdateSubscriptionNotificationsDTO
 from core.price_tracking.exceptions import SubscriptionAlreadyExistsException, SubscriptionNotFoundException
 from core.price_tracking.services import PriceTrackingService, get_price_tracking_service
 from core.users.entities import AuthUserDTO
@@ -45,6 +50,25 @@ async def get_subscriptions(
 ) -> list[PriceSubscriptionSchema]:
     subscriptions = await service.get_subscriptions(current_user.id)
     return [PriceSubscriptionSchema(**vars(s)) for s in subscriptions]
+
+
+@price_tracking_router.patch(
+    "/subscriptions/{subscription_id}/notifications",
+    status_code=status.HTTP_200_OK,
+    response_model=PriceSubscriptionSchema,
+)
+async def update_subscription_notifications(
+    subscription_id: UUID,
+    data: UpdateSubscriptionNotificationsSchema,
+    current_user: AuthUserDTO = Depends(get_current_user),
+    service: PriceTrackingService = Depends(get_price_tracking_service),
+) -> PriceSubscriptionSchema:
+    try:
+        dto = UpdateSubscriptionNotificationsDTO(**data.model_dump())
+        subscription = await service.update_notifications(current_user.id, subscription_id, dto)
+        return PriceSubscriptionSchema(**vars(subscription))
+    except SubscriptionNotFoundException as e:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e)) from e
 
 
 @price_tracking_router.delete(
