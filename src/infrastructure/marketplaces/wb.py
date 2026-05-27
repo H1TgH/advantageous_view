@@ -1,9 +1,9 @@
+import logging
 import re
 from datetime import date
 
 import httpx
 from dateutil import parser as date_parser
-import logging
 
 from core.search.entities import ProductDTO
 from settings import settings
@@ -36,7 +36,7 @@ class WBClient:
         )
         resp.raise_for_status()
         data = resp.json()
-        logger.warning("WB raw response keys: %s, status: %s, offers count: %s", 
+        logger.warning("WB raw response keys: %s, status: %s, offers count: %s",
                     list(data.keys()), data.get("status"), len(data.get("offers") or []))
         if data.get("status") != "OK":
             logger.warning("WB returned non-OK status: %s", data.get("status"))

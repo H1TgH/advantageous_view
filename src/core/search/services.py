@@ -4,6 +4,8 @@ from uuid import UUID
 
 from fastapi import Request
 
+from core.feedbacks.entities import SellerReliabilityDTO
+from core.feedbacks.services import FeedbackService
 from core.preferences.entities import DEFAULT_PREFERENCES, UserPreferencesDTO
 from core.preferences.services import UserPreferencesService
 from core.search.entities import ProductDTO
@@ -12,8 +14,6 @@ from core.search_history.services import SearchHistoryService
 from infrastructure.database.uow import UnitOfWork
 from infrastructure.marketplaces.wb import WBClient
 from infrastructure.marketplaces.ym import YandexMarketClient
-from core.feedbacks.entities import SellerReliabilityDTO
-from core.feedbacks.services import FeedbackService
 
 
 logger = logging.getLogger(__name__)
@@ -101,7 +101,7 @@ class SearchService:
         ):
             return "Средняя"
         return "Низкая"
-    
+
     @staticmethod
     def _assign_badges(products: list[ProductDTO]) -> None:
         if not products:
@@ -119,6 +119,7 @@ class SearchService:
         if with_delivery:
             fastest = min(with_delivery, key=lambda p: p.delivery_days)
             fastest.badges.append("Быстрая доставка")
+
 
 def get_search_service(request: Request) -> SearchService:
     return SearchService(

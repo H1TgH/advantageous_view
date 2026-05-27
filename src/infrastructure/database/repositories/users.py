@@ -4,7 +4,7 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.users.entities import UserCreationDTO, UserModelDTO, UpdateUserDTO
+from core.users.entities import UpdateUserDTO, UserCreationDTO, UserModelDTO
 from infrastructure.database.models.users import UserModel
 
 
@@ -29,7 +29,7 @@ class UserRepository:
         return UserModelDTO.from_model(
             result.scalar_one_or_none()
         )
-    
+
     async def update(self, user_id: UUID, dto: UpdateUserDTO) -> UserModelDTO | None:
         stmt = select(UserModel).where(UserModel.id == user_id)
         result = await self.session.execute(stmt)

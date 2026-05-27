@@ -5,7 +5,15 @@ from uuid import UUID
 import bcrypt
 from jose import ExpiredSignatureError, JWTError, jwt
 
-from core.users.entities import AuthUserDTO, LoginTokensDTO, UpdateUserDTO, UserCreationDTO, UserLoginDTO, UserModelDTO, UserReadDTO
+from core.users.entities import (
+    AuthUserDTO,
+    LoginTokensDTO,
+    UpdateUserDTO,
+    UserCreationDTO,
+    UserLoginDTO,
+    UserModelDTO,
+    UserReadDTO,
+)
 from core.users.exceptions import (
     InvalidCredentialsException,
     InvalidTokenException,
@@ -137,7 +145,7 @@ class UserService:
             )
 
         return dto
-    
+
     async def update_me(self, user_id: UUID, dto: UpdateUserDTO) -> UserReadDTO:
         async with self.uow() as session:
             repo = UserRepository(session)

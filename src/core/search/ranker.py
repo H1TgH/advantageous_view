@@ -1,7 +1,7 @@
-import math
 
 from core.preferences.entities import UserPreferencesDTO
 from core.search.entities import ProductDTO
+
 
 _BAYESIAN_C = 50.0
 

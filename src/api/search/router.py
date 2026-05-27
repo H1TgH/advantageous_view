@@ -3,7 +3,6 @@ from fastapi import APIRouter, Depends, status
 from api.search.schemas import ProductSchema
 from core.search.services import SearchService, get_search_service
 from core.users.entities import AuthUserDTO
-from core.users.services import UserService, get_user_service
 from dependencies import get_optional_user
 
 

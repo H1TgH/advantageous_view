@@ -4,8 +4,8 @@ from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from api.favorites.router import favorites_router
-from api.notifications.router import notifications_router
 from api.feedbacks.router import feedback_router
+from api.notifications.router import notifications_router
 from api.preferences.router import preferences_router
 from api.price_tracking.router import price_tracking_router
 from api.search.router import search_router

@@ -1,6 +1,13 @@
 from fastapi import APIRouter, Depends, status
 
-from api.users.schemas import LoginResponseSchema, LoginSchema, RegistrationSchema, TokenSchema, UpdateMeSchema, UserMeSchema
+from api.users.schemas import (
+    LoginResponseSchema,
+    LoginSchema,
+    RegistrationSchema,
+    TokenSchema,
+    UpdateMeSchema,
+    UserMeSchema,
+)
 from core.users.entities import AuthUserDTO, UpdateUserDTO, UserCreationDTO, UserLoginDTO
 from core.users.services import UserService, get_user_service
 from dependencies import get_current_user

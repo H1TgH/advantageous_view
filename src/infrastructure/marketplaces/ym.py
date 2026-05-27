@@ -1,8 +1,8 @@
 import logging
 import re
+from datetime import date
 
 import httpx
-from datetime import date
 from dateutil import parser as date_parser
 
 from core.search.entities import ProductDTO
@@ -22,7 +22,7 @@ class YandexMarketClient:
             timeout=httpx.Timeout(10.0),
             headers={"Accept": "application/json"},
         )
-    
+
     async def close(self) -> None:
         await self._client.aclose()
 
