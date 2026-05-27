@@ -5,6 +5,7 @@ from core.price_tracking.entities import (
     PriceHistoryItemDTO,
     PriceSubscriptionDTO,
     UpdateSubscriptionNotificationsDTO,
+    UpdateSubscriptionTargetDTO,
 )
 from core.price_tracking.exceptions import SubscriptionAlreadyExistsException, SubscriptionNotFoundException
 from infrastructure.database.repositories.price_tracking import PriceTrackingRepository
@@ -55,6 +56,19 @@ class PriceTrackingService:
         async with self._uow() as session:
             repo = PriceTrackingRepository(session)
             subscription = await repo.update_notifications(subscription_id, user_id, dto)
+            if not subscription:
+                raise SubscriptionNotFoundException("Subscription not found")
+            return subscription
+
+    async def update_target_price(
+        self,
+        user_id: UUID,
+        subscription_id: UUID,
+        dto: UpdateSubscriptionTargetDTO,
+    ) -> PriceSubscriptionDTO:
+        async with self._uow() as session:
+            repo = PriceTrackingRepository(session)
+            subscription = await repo.update_target_price(subscription_id, user_id, dto)
             if not subscription:
                 raise SubscriptionNotFoundException("Subscription not found")
             return subscription

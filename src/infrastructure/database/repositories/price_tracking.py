@@ -8,6 +8,7 @@ from core.price_tracking.entities import (
     PriceHistoryItemDTO,
     PriceSubscriptionDTO,
     UpdateSubscriptionNotificationsDTO,
+    UpdateSubscriptionTargetDTO,
 )
 from infrastructure.database.models.price_tracking import PriceHistoryModel, PriceSubscriptionModel
 from infrastructure.database.models.users import UserModel
@@ -87,6 +88,25 @@ class PriceTrackingRepository:
 
         model.notify_in_app = dto.notify_in_app
         model.notify_email = dto.notify_email
+        await self.session.flush()
+        return self._sub_to_dto(model)
+
+    async def update_target_price(
+        self,
+        subscription_id: UUID,
+        user_id: UUID,
+        dto: UpdateSubscriptionTargetDTO,
+    ) -> PriceSubscriptionDTO | None:
+        stmt = select(PriceSubscriptionModel).where(
+            PriceSubscriptionModel.id == subscription_id,
+            PriceSubscriptionModel.user_id == user_id,
+        )
+        result = await self.session.execute(stmt)
+        model = result.scalar_one_or_none()
+        if not model:
+            return None
+
+        model.target_price = dto.target_price
         await self.session.flush()
         return self._sub_to_dto(model)
 

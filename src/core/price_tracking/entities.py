@@ -44,6 +44,11 @@ class UpdateSubscriptionNotificationsDTO:
 
 
 @dataclass
+class UpdateSubscriptionTargetDTO:
+    target_price: float | None
+
+
+@dataclass
 class PriceCheckAlert:
     subscription_id: UUID
     user_id: UUID

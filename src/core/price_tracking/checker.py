@@ -5,6 +5,7 @@ from core.notifications.entities import CreateNotificationDTO
 from core.price_tracking.entities import PriceCheckAlert, PriceSubscriptionDTO
 from infrastructure.database.repositories.notifications import NotificationRepository
 from infrastructure.database.repositories.price_tracking import PriceTrackingRepository
+from infrastructure.database.repositories.user_notification_settings import UserNotificationSettingsRepository
 from infrastructure.database.uow import UnitOfWork
 from infrastructure.marketplaces.wb import WBClient
 from infrastructure.marketplaces.ym import YandexMarketClient
@@ -93,7 +94,8 @@ class PriceCheckerService:
             )
             return None
 
-        if not sub.notify_in_app and not sub.notify_email:
+        notify_in_app, notify_email = await self._resolve_notify_flags(user_id, sub)
+        if not notify_in_app and not notify_email:
             logger.debug("Подписка %s: уведомления отключены", sub.id)
             return None
 
@@ -110,9 +112,27 @@ class PriceCheckerService:
             title=sub.title,
             url=sub.url,
             reason=reason,
-            notify_in_app=sub.notify_in_app,
-            notify_email=sub.notify_email,
+            notify_in_app=notify_in_app,
+            notify_email=notify_email,
         )
+
+    async def _resolve_notify_flags(self, user_id: UUID, sub: PriceSubscriptionDTO) -> tuple[bool, bool]:
+        async with self._uow() as session:
+            repo = UserNotificationSettingsRepository(session)
+            settings_data = await repo.get_by_user_id(user_id)
+
+        if not settings_data:
+            return sub.notify_in_app, sub.notify_email
+
+        if not settings_data.notifications_enabled:
+            return False, False
+
+        if not settings_data.subscription_price_changes:
+            return False, False
+
+        notify_in_app = sub.notify_in_app and settings_data.notify_in_app
+        notify_email = sub.notify_email and settings_data.notify_email
+        return notify_in_app, notify_email
 
     async def _fetch_min_price(self, sub: PriceSubscriptionDTO) -> float | None:
         try:

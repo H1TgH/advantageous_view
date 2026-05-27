@@ -20,6 +20,10 @@ class UpdateSubscriptionNotificationsSchema(BaseModel):
     notify_email: bool
 
 
+class UpdateSubscriptionTargetSchema(BaseModel):
+    target_price: float | None
+
+
 class PriceSubscriptionSchema(BaseModel):
     id: UUID
     product_id: str
