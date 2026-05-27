@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настройка предпочтений</title>
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/style_main.css">
+    <link rel="stylesheet" href="css/preferences.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="./index.html" class="header_logo">
+                <img class="header_logo-image" src="./img/logo.svg" alt="Логотип проекта">
+            </a>
+            <div class="header_content_menu">
+                <nav class="header__menu">
+                    <ul class="header__links-list">
+                        <li class="header__links-list-item_no-bullit">
+                            <a class="header__link" href="./compare.html">Поиск</a>
+                        </li>
+                        <li class="hader__linkes-list-item">
+                            <a class="header__link" href="./monitoring.html">Отслеживание цен</a>
+                        </li>
+                        <li class="hader__linkes-list-item">
+                            <a class="header__link" href="./search_history.html">История поиска</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="user-profile">
+                <img src="./img/message.svg" class="message-icon">
+                <a href="./profile.html" class="profile-button">
+                    <img src="./img/search.svg" class="header__search-icon" alt="Икона поиска">
+                    <span>Личный кабинет</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной блок профиля (показывается только авторизованным) -->
+    <div class="container" id="profileBlock" style="padding: 30px 10%; display: none;">
+        <div class="profile-card">
+            <div class="profile-header">
+            </div>
+            <div class="profile-inner">
+                <!-- Вкладки навигации -->
+                <div class="profile-tabs">
+                    <div class="tab-item active">
+                        <i class="fas fa-user"></i><a href="profile.html">Профиль</a>
+                    </div>
+                    <div class="tab-item">
+                        <i class="fas fa-heart"></i><a href="favourites.html">Избранное</a>
+                    </div>
+                    <div class="tab-item" style="border: none;">
+                        <i class="fas fa-sliders-h"></i><a href="preferences.html">Настройки предпочтений</a>
+                    </div>
+                </div>
+                <main class="preferences-main">
+        <div class="container preferences-container">
+            <h1 class="preferences-title">Настройка предпочтений</h1>
+            <p class="preferences-subtitle">
+                Проставь приоритеты для эффективного поиска подходящих тебе товаров!<br>
+            </p>
+
+            <div class="priorities-grid">
+                <!-- Цена -->
+                <div class="priority-card" data-criterion="price">
+                    <h3 class="criterion-name">Цена</h3>
+                    <div class="priority-buttons" data-criterion="price">
+                        <button class="priority-btn" data-value="1">1</button>
+                        <button class="priority-btn" data-value="2">2</button>
+                        <button class="priority-btn" data-value="3">3</button>
+                    </div>
+                    <div class="priority-status"></div>
+                </div>
+
+                <!-- Скорость -->
+                <div class="priority-card" data-criterion="speed">
+                    <h3 class="criterion-name">Скорость</h3>
+                    <div class="priority-buttons" data-criterion="speed">
+                        <button class="priority-btn" data-value="1">1</button>
+                        <button class="priority-btn" data-value="2">2</button>
+                        <button class="priority-btn" data-value="3">3</button>
+                    </div>
+                    <div class="priority-status"></div>
+                </div>
+
+                <!-- Надежность -->
+                <div class="priority-card" data-criterion="reliability">
+                    <h3 class="criterion-name">Надежность</h3>
+                    <div class="priority-buttons" data-criterion="reliability" style="margin-right: 23%;">
+                        <button class="priority-btn" data-value="1">1</button>
+                        <button class="priority-btn" data-value="2">2</button>
+                        <button class="priority-btn" data-value="3">3</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preferences-actions">
+                <button id="savePreferencesBtn" class="btn-save">Сохранить предпочтения</button>
+                <button id="resetPreferencesBtn" class="btn-reset">Сбросить</button>
+            </div>
+            <div id="preferencesMessage" class="message-area"></div>
+        </div>
+    </main>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <a href="./index.html"><img src="./img/logo.svg" alt="Выгодный Взгляд" class="footer-logo-image"></a>
+            </div>
+
+            <div class="footer-info">
+                <p class="footer-text">
+                    «Выгодный Взгляд» трансформирует хаотичный процесс поиска в управляемый,
+                    основанный на данных выбор, где решение принимается не на эмоциях или случайности,
+                    а на четкой логике, соответствующей вашим личным критериям. Это дает пользователю
+                    чувство контроля, уверенности и реальную экономию ресурсов.
+                </p>
+            </div>
+
+            <div class="footer-contacts">
+                <a href="tel:+79999999999" class="footer-phone">+7 999 999 99 99</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/preferences.js"></script>
+</body>
+</html>

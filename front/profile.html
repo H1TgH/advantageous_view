@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="./css/profile.css">
+    <link rel="stylesheet" href="./css/style_main.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="./index.html" class="header_logo">
+                <img class="header_logo-image" src="./img/logo.svg" alt="Логотип проекта">
+            </a>
+            <div class="header_content_menu">
+                <nav class="header__menu">
+                    <ul class="header__links-list">
+                        <li class="header__links-list-item_no-bullit">
+                            <a class="header__link" href="./compare.html">Поиск</a>
+                        </li>
+                        <li class="hader__linkes-list-item">
+                            <a class="header__link" href="./monitoring.html">Отслеживание цен</a>
+                        </li>
+                        <li class="hader__linkes-list-item">
+                            <a class="header__link" href="./search_history.html">История поиска</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="user-profile">
+                <img src="./img/message.svg" class="message-icon">
+                <a href="./profile.html" class="profile-button">
+                    <img src="./img/search.svg" class="header__search-icon" alt="Икона поиска">
+                    <span>Личный кабинет</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной блок профиля (показывается только авторизованным) -->
+    <div class="container" id="profileBlock" style="padding: 30px 10%; display: none;">
+        <div class="profile-card">
+            <div class="profile-header">
+                <h1>Личный кабинет</h1>
+            </div>
+            <div class="profile-inner">
+                <!-- Вкладки навигации -->
+                <div class="profile-tabs">
+                    <div class="tab-item active">
+                        <i class="fas fa-user"></i><a href="profile.html">Профиль</a>
+                    </div>
+                    <div class="tab-item">
+                        <i class="fas fa-heart"></i><a href="favourites.html">Избранное</a>
+                    </div>
+                    <div class="tab-item" style="border: none;">
+                        <i class="fas fa-sliders-h"></i><a href="preferences.html">Настройки предпочтений</a>
+                    </div>
+                </div>
+
+                <!-- Секция Личная информация -->
+                <div class="info-section">
+                    <div class="section-header">
+                        <h2>Личная информация</h2>
+                    </div>
+                    <div class="info-content">
+                        <div class="info-row">
+                            <span class="info-label">Имя:</span>
+                            <span class="info-value" id="displayName">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Email:</span>
+                            <span class="info-value" id="displayEmail">-</span>
+                        </div>
+                    </div>
+                    <button class="edit-btn" id="editInfoBtn">
+                        <i class="fas fa-pencil-alt"></i> Редактировать
+                    </button>
+                </div>
+
+                <!-- Секция Уведомление с переключателем -->
+                <div class="notifications-section">
+                    <div class="section-header">
+                        <h2>Уведомление</h2>
+                        <div class="toggle-switch">
+                            <span class="toggle-label off" id="notifOffLabel">Выкл.</span>
+                            <label class="switch">
+                                <input type="checkbox" id="notificationToggle">
+                                <span class="slider round"></span>
+                            </label>
+                            <span class="toggle-label on" id="notifOnLabel">Вкл.</span>
+                        </div>
+                    </div>
+
+                    <h2>Подписки</h2>
+                    <div class="subscriptions-list">
+                        <label class="subscription-item">
+                            <input type="checkbox" class="sub-checkbox" checked>
+                            <span class="checkmark"></span>
+                            <span class="sub-text">Измените цены товара в списке отслеживаемых</span>
+                        </label>
+                        <label class="subscription-item">
+                            <input type="checkbox" class="sub-checkbox" checked>
+                            <span class="checkmark"></span>
+                            <span class="sub-text">Новые фичи сервиса</span>
+                        </label>
+                    </div>
+                    <div class="notification-settings">
+                        <h2 class="label">Уведомлять:</h2>
+                        <div class="notify-buttons">
+                            <button class="notify-btn active">Выгодный взгляд</button>
+                            <button class="notify-btn">Email</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Кнопка выхода -->
+            <div class="logout-section">
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Выйти
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для редактирования -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Редактировать информацию</h3>
+                <button class="close-modal" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="editName">Имя:</label>
+                    <input type="text" id="editName" placeholder="Введите имя">
+                </div>
+                <div class="form-group">
+                    <label for="editEmail">Email:</label>
+                    <input type="email" id="editEmail" placeholder="Введите email">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" id="cancelModalBtn">Отмена</button>
+                <button class="btn-save" id="saveModalBtn">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <a href="./index.html"><img src="./img/logo.svg" alt="Выгодный Взгляд" class="footer-logo-image"></a>
+            </div>
+
+            <div class="footer-info">
+                <p class="footer-text">
+                    «Выгодный Взгляд» трансформирует хаотичный процесс поиска в управляемый,
+                    основанный на данных выбор, где решение принимается не на эмоциях или случайности,
+                    а на четкой логике, соответствующей вашим личным критериям. Это дает пользователю
+                    чувство контроля, уверенности и реальную экономию ресурсов.
+                </p>
+            </div>
+
+            <div class="footer-contacts">
+                <a href="tel:+79999999999" class="footer-phone">+7 999 999 99 99</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/auth.js"></script>
+    <script src="./js/profile.js"></script>
+</body>
+
+</html>

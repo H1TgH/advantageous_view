@@ -1,0 +1,21 @@
+<svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect width="44" height="44" fill="url(#pattern0_164_58)"/>
+<rect width="44" height="44" fill="url(#pattern1_164_58)"/>
+<rect width="44" height="44" fill="url(#pattern2_164_58)"/>
+<rect width="44" height="44" fill="url(#pattern3_164_58)"/>
+<defs>
+<pattern id="pattern0_164_58" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image0_164_58" transform="scale(0.02)"/>
+</pattern>
+<pattern id="pattern1_164_58" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image0_164_58" transform="scale(0.02)"/>
+</pattern>
+<pattern id="pattern2_164_58" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image0_164_58" transform="scale(0.02)"/>
+</pattern>
+<pattern id="pattern3_164_58" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image0_164_58" transform="scale(0.02)"/>
+</pattern>
+<image id="image0_164_58" width="50" height="50" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACP0lEQVR4nO2ZzUscQRDFf4seAm6U9RqiXsV1J2hOMRujQnKTQERU3HhJAtFj8BLBuDv6f4eCN1Asi2i2u2dnmAcNw3y86jdTVV1dAw0azCReAtvAEXAF3AAjDTu+1DW7p80MYg0YADnw8MSR6xl7tnQsAxdjk/sB7ACvgQVgTmNB597rHi/6m7hKQQb81UTugE+a7FNh937Ws8ZxC/RIjH33Nk+AxSm4loBTx7dHIhzI4L2OW4F434kziZjMiehG4O86MdHcbNnFxIdYRoBdFzOdGAYuXEzERMvFzCA0+ZrLThacsbHostlqSOKBSC3FpoKlZrN5HrLsyDWes05MC7OVq7wJYvet3sx30uOnbG+FIDsSmZUdqdGX7a8hyK5EZnVSaqzI9q8QZDciSxkfBdqy/ScE2UhkVsGmxrxsD+si5LYurvW76sG+KtuWhmuRfr+EINsWmW1Py1oQN0L5aZklSg68CF00WiGXumg8jbHCDkso41+FJh+4NxRqnz4Jxn0WuoT36GhhetB2NBY+yoatX9N0Zx5FL3LzYdM1H9aJjD0nZjeQm7X0JQoR9+rYkEpMETPTJIAlFxPjveGMBOi5mLlTuvyflunQFYbjTfA8VRu147KZb2L3lbLbrond1rm+Vux8Qts1K1NMUdydP/O3gm0PjicUo6WLKdxlS3vsS/ejx1zvWlvWQ03qMTfszYKYULD0PknMG2okJqOC6DZiZhTduokZNWIq4mb7VBQb7stUVoT/Msl+ZzdoAPwDjDOPXtECctYAAAAASUVORK5CYII="/>
+</defs>
+</svg>

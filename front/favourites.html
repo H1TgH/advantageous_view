@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Избранное</title>
+    <link rel="stylesheet" href="./css/card.css">
+    <link rel="stylesheet" href="./css/style_main.css">
+    <link rel="stylesheet" href="./css/profile.css">
+    <link rel="stylesheet" href="./css/favorites.css">
+</head>
+<style>
+    /* Исправление для модального окна */
+    .modal-overlay.active {
+        display: flex;
+    }
+    .modal-container {
+        max-width: 1000px;}
+</style>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="./index.html" class="header_logo">
+                <img class="header_logo-image" src="./img/logo.svg" alt="Логотип проекта">
+            </a>
+            <div class="header_content_menu">
+                <nav class="header__menu">
+                    <ul class="header__links-list">
+                        <li class="header__links-list-item_no-bullit">
+                            <a class="header__link" href="./compare.html">Поиск</a>
+                        </li>
+                        <li class="hader__linkes-list-item">
+                            <a class="header__link" href="./monitoring.html">Отслеживание цен</a>
+                        </li>
+                        <li class="hader__linkes-list-item">
+                            <a class="header__link" href="./search_history.html">История поиска</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="user-profile">
+                <img src="./img/message.svg" class="message-icon">
+                <a href="./profile.html" class="profile-button">
+                    <img src="./img/search.svg" class="header__search-icon" alt="Икона поиска">
+                    <span>Личный кабинет</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной блок профиля -->
+    <div class="container" id="profileBlock" style="padding: 30px 10%;">
+        <div class="profile-card">
+            <div class="profile-header">
+                <h1 style="margin-left: 30%;">Избранное</h1>
+            </div>
+            <div class="profile-inner" style="justify-content: start;">
+                <!-- Вкладки навигации -->
+                <div class="profile-tabs" style=" width: 35%;">
+                    <div class="tab-item active">
+                        <i class="fas fa-user"></i><a href="./profile.html">Профиль</a>
+                    </div>
+                    <div class="tab-item">
+                        <i class="fas fa-heart"></i><a href="./favourites.html">Избранное</a>
+                    </div>
+                    <div class="tab-item" style="border: none;">
+                        <i class="fas fa-sliders-h"></i><a href="./preferences.html">Настройки предпочтений</a>
+                    </div>
+                </div>
+                
+                <!-- Контент избранного -->
+                <div id="favoritesContainer" class="favorites-container" style="display: block;">
+                    <div id="favorites-list">
+                        <!-- Здесь будет список избранных товаров -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <a href="./index.html"><img src="./img/logo.svg" alt="Выгодный Взгляд" class="footer-logo-image"></a>
+            </div>
+
+            <div class="footer-info">
+                <p class="footer-text">
+                    «Выгодный Взгляд» трансформирует хаотичный процесс поиска в управляемый,
+                    основанный на данных выбор, где решение принимается не на эмоциях или случайности,
+                    а на четкой логике, соответствующей вашим личным критериям. Это дает пользователю
+                    чувство контроля, уверенности и реальную экономию ресурсов.
+                </p>
+            </div>
+
+            <div class="footer-contacts">
+                <a href="tel:+79999999999" class="footer-phone">+7 999 999 99 99</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальное окно (такое же как в monitoring.html) -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-content" id="modalContent">
+                <!-- Динамически заполняется из JS -->
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/auth.js"></script>
+    <script src="./js/profile.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        // ------------------ Модальное окно (как в monitoring) ------------------
+        let currentChart = null;
+
+        function openModal(product) {
+            const modal = document.getElementById('modal-overlay');
+            const modalContent = document.getElementById('modalContent');
+            
+            // Заполняем контент модального окна данными товара
+            modalContent.innerHTML = `
+                <div class="modal-col-left">
+                    <img src="${product.img || '/img/product.png'}" alt="${product.name}" class="modal-product-img">
+                    <div class="analysis-reviews">
+                        <h3 class="analysis-title">Анализ отзывов</h3>
+                        <p class="analysis-subtitle">Ключевые характеристики на основе отзывов на страницах маркетплейсов.</p>
+                        <div class="review-badges">
+                            <div class="badge-row"><span>Качество товара:</span><span class="badge">${product.quality || 'хорошее'}</span></div>
+                            <div class="badge-row"><span>Доставка:</span><span class="badge">${product.delivery || 'быстрая'}</span></div>
+                            <div class="badge-row"><span>Соответствие описанию:</span><span class="badge">${product.match || 'соответствует'}</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-col-center">
+                    <h2 class="modal-title">${product.name}</h2>
+                    <div class="modal-rating">
+                        <span class="rating-value">⭐ ${product.rating || '4.7'}</span>
+                        <span class="reviews-count">${product.reviews || '188'} отзывов</span>
+                    </div>
+                    <div class="modal-info-details">
+                        <p class="delivery-text">Доставка: ${product.deliveryPrice || '399'} р.</p>
+                        <p class="info-label">Основная информация :</p>
+                        <div class="specs-box">
+                            Цвет: ${product.color || 'черный'};<br>
+                            Память: ${product.memory || '128 GB'};<br>
+                            Гарантия: ${product.warranty || '1 год'};<br>
+                            Состояние: ${product.condition || 'новой'}.
+                        </div>
+                        <div class="seller-line">
+                            <span>Продавец:</span>
+                            <div class="seller-brand">
+                                <img src="/img/seller.svg" alt="" class="shop-icon" width="20">
+                                <div class="seller-details">
+                                    <span class="seller-name">${product.seller || 'Айстар Бутик'}</span>
+                                    <span class="seller-rating">⭐ <span class="rating-value">${product.sellerRating || '4.7'}</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="add-to-fav" onclick="toggleFavoriteFromModal('${product.id}')">
+                            <span class="heart-icon">❤️</span> <span class="btn-text">В избранном</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-col-right">
+                    <div class="price-analysis-card">
+                        <h3>Анализ цены</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="priceChart"></canvas>
+                        </div>
+                        <div class="price-summary">
+                            <p class="p-old">${product.oldPrice || '68 990'} ₽</p>
+                            <p class="p-delivery">Доставка: ${product.deliveryPrice || '399'} р.</p>
+                            <p class="p-total">Текущая цена: ${product.totalPrice || product.price || '69 389'} ₽</p>
+                            <div class="market-tag">
+                                <img src="/img/yandex.png" alt="Маркет" width="100" height="30">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-main-actions">
+                        <button class="btn-buy" onclick="window.open('${product.buyLink || '#'}', '_blank')">Купить на маркетплейсе</button>
+                        <button class="btn-monitor" data-product-id="${product.id}" onclick="addToMonitoring('${product.id}')">Мониторить цену</button>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+            
+            // Инициализация графика цен
+            setTimeout(() => {
+                const ctx = document.getElementById('priceChart')?.getContext('2d');
+                if (ctx) {
+                    if (currentChart) currentChart.destroy();
+                    currentChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: product.priceHistory?.labels || ['Янв', 'Фев', 'Мар', 'Апр', 'Май'],
+                            datasets: [{
+                                label: 'Цена (₽)',
+                                data: product.priceHistory?.values || [71000, 70500, 69800, 69500, 69389],
+                                borderColor: '#e67e22',
+                                tension: 0.3,
+                                fill: false
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: { legend: { display: false } }
+                        }
+                    });
+                }
+            }, 50);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal-overlay');
+            modal.classList.remove('active');
+            if (currentChart) {
+                currentChart.destroy();
+                currentChart = null;
+            }
+        }
+
+        // Закрытие по клику на overlay
+        document.getElementById('modal-overlay')?.addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Функция для модального окна избранного
+        function toggleFavoriteFromModal(productId) {
+            // Можно реализовать удаление из избранного прямо из модалки
+            showToastMessage('Товар в избранном');
+        }
+
+        function addToMonitoring(productId) {
+            showToastMessage('Товар добавлен в отслеживание цен');
+            // Здесь можно добавить логику сохранения в monitoring
+        }
+
+        // ------------------ Работа с избранным ------------------
+        function loadFavorites() {
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            const container = document.getElementById('favorites-list');
+            
+            if (!container) return;
+            
+            if (favorites.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-favorites">
+                        <p>❤️ У вас пока нет избранных товаров</p>
+                        <p>Добавляйте товары в избранное, и они появятся здесь</p>
+                        <a href="/index.html" class="go-to-search">Найти товары</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = favorites.map((product, index) => {
+                const productId = product.id || `fav_${index}`;
+                return `
+                    <div class="favorite-item" data-id="${productId}">
+                        <img src="${product.img || '/img/product.png'}" alt="${product.name}" class="favorite-img">
+                        <div class="favorite-info">
+                            <h4 class="favorite-name" style="cursor: pointer;" onclick="openModalForProduct(${index})">${product.name}</h4>
+                            <div class="favorite-rating">⭐ ${product.rating || '4.7'}</div>
+                            <div class="favorite-price">${product.price || 'Цена не указана'}</div>
+                        </div>
+                        <div class="ps-btn">
+                            <button class="ps1-btn" onclick="openModalForProduct(${index})">Подробнее</button>
+                            <button class="ps2-btn" onclick="compareProduct(${index})">Сравнить</button>
+                        </div>
+                        <button class="favorite-remove" onclick="removeFromFavorites('${productId}')"><img class="delete-img" src="img/delete.png" alt="Удалить"></button>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // Функция открытия модального окна с полными данными товара
+        function openModalForProduct(index) {
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            const product = favorites[index];
+            if (product) {
+                // Обогащаем продукт дополнительными полями для модального окна
+                const enrichedProduct = {
+                    id: product.id || `fav_${index}`,
+                    name: product.name,
+                    img: product.img,
+                    price: product.price,
+                    rating: product.rating || '4.7',
+                    reviews: product.reviews || '188',
+                    deliveryPrice: product.deliveryPrice || '399',
+                    color: product.color || 'черный',
+                    memory: product.memory || '128 GB',
+                    warranty: product.warranty || '1 год',
+                    condition: product.condition || 'новой',
+                    seller: product.seller || 'Айстар Бутик',
+                    sellerRating: product.sellerRating || '4.7',
+                    oldPrice: product.oldPrice || '68 990',
+                    totalPrice: product.totalPrice || product.price,
+                    quality: product.quality || 'хорошее',
+                    delivery: product.delivery || 'быстрая',
+                    match: product.match || 'соответствует',
+                    buyLink: product.buyLink || '#',
+                    priceHistory: product.priceHistory || {
+                        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май'],
+                        values: [71000, 70500, 69800, 69500, 69389]
+                    }
+                };
+                openModal(enrichedProduct);
+            }
+        }
+        
+        function removeFromFavorites(productId) {
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            favorites = favorites.filter(item => (item.id || `fav_${favorites.indexOf(item)}`) !== productId);
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            loadFavorites();
+            showToastMessage('Товар удален из избранного');
+        }
+        
+        function compareProduct(index) {
+            // Сохраняем выбранный товар для сравнения
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            const product = favorites[index];
+            localStorage.setItem('compareProduct', JSON.stringify(product));
+            window.location.href = 'compare.html';
+        }
+        
+        function showToastMessage(message) {
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #333;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 8px;
+                z-index: 2000;
+                font-size: 14px;
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
+        }
+        
+        // Загружаем избранное при загрузке страницы
+        document.addEventListener('DOMContentLoaded', loadFavorites);
+        window.addEventListener('pageshow', loadFavorites);
+        
+        // Добавляем обработчик Escape для закрытия модалки
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

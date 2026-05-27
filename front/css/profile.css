@@ -1,0 +1,539 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: #1a1a2e;
+    line-height: 1.5;
+}
+
+
+
+/* Карточка профиля */
+.profile-card {
+    background: white;
+    overflow: hidden;
+}
+
+.profile-inner {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Заголовок */
+.profile-header h1 {
+    font-size: 38px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 20px;
+}
+
+/* Вкладки навигации */
+.profile-tabs {
+    height: fit-content;
+    text-align: center;
+    border-radius: 20px;
+    border: #2C64A6 solid 1px;
+    width: 25%;
+
+}
+
+.favorites-container{
+    margin-left: 5%;
+}
+
+.tab-item {
+    font-size: 24px;
+    font-weight: 500;
+    color: #6c757d;
+    cursor: pointer;
+    padding: 20px;
+    transition: all 0.2s ease;
+    position: relative;
+    border-bottom: #267AC6 solid 1px;
+}
+
+.tab-item i {
+    margin-right: 8px;
+}
+
+.tab-item a {
+    text-decoration: none;
+}
+
+.tab-item:hover {
+    color: #4a6fa5;
+}
+
+.tab-item.active {
+    color: #4a6fa5;
+    font-weight: 600;
+}
+
+.tab-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+}
+
+/* Секции общие */
+
+
+.notifications-section{
+    margin-top: -35px;
+    width: 25%;
+    border: 1px solid #C8C8C8;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.info-section {
+    width: 40%;
+    border: 1px solid #C8C8C8;
+    border-radius: 20px;
+    padding: 40px;
+}
+
+.section-header {
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.section-header h2 {
+    font-weight: 100;
+    font-size: 24px;
+    color: #2C64A6;
+}
+
+h2 {
+    font-size: 18px;
+    color: #2c3e50;
+    margin-bottom: 16px;
+}
+
+/* Кнопка редактирования */
+.edit-btn {
+    color: #fff;
+    background: #0651CE;
+    border: 1px solid #d0d7de;
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.edit-btn i {
+    font-size: 12px;
+}
+
+.edit-btn:hover {
+    background: #f0f4f9;
+    color: #0651CE;
+    border-color: #4a6fa5;
+}
+
+/* Информационные строки */
+.info-content {
+    font-size: 22px;
+    padding: 20px 0px;
+}
+
+.info-row {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #e8eaf0;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    width: 80px;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.info-value {
+    color: #1a1a2e;
+    font-weight: 500;
+}
+
+/* Переключатель уведомлений */
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toggle-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #6c757d;
+}
+
+.toggle-label.on {
+    color: #28a745;
+}
+
+.toggle-label.off {
+    color: #dc3545;
+}
+
+/* Стили для кастомного свитча */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 26px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #dc3545;
+    transition: 0.3s;
+    border-radius: 26px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #28a745;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Подписки */
+.subscriptions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: #f8f9fc;
+    border-radius: 16px;
+    padding: 16px 20px;
+}
+
+.subscription-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #2c3e50;
+    position: relative;
+    padding-left: 28px;
+}
+
+/* Кастомный чекбокс */
+.subscription-item input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #fff;
+    border: 2px solid #cbd5e0;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.subscription-item:hover input ~ .checkmark {
+    border-color: #4a6fa5;
+}
+
+.subscription-item input:checked ~ .checkmark {
+    background-color: #4a6fa5;
+    border-color: #4a6fa5;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.subscription-item input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.subscription-item .checkmark:after {
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.sub-text {
+    line-height: 1.4;
+}
+.notification-settings{
+    margin-top: 1rem;
+}
+ Уведомления */
+.notify-buttons { 
+    display: flex; 
+    gap: 8px; 
+    margin-top: 5px; 
+}
+
+.notify-btn {
+    border: 1px solid #2d5aa3;
+    background: #447ad1;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #fbfbfb;
+}
+
+.notify-btn.active { 
+    background: #0F3C85; 
+    color: white; 
+}
+
+
+/* Кнопка выхода */
+.logout-section {
+    text-align: center;
+    margin: 40px;
+    padding: 20px;
+}
+
+.logout-btn {
+    background: #C73939;
+    color: #fff;
+    border: 1.5px solid #dc3545;
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logout-btn i {
+    font-style: normal;
+    font-size: 20px;
+}
+
+.logout-btn:hover {
+    background: #dc3545;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 24px;
+    width: 90%;
+    max-width: 450px;
+    animation: modalSlideIn 0.2s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e8eaf0;
+}
+
+.modal-header h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #6c757d;
+    transition: 0.2s;
+}
+
+.close-modal:hover {
+    color: #dc3545;
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #d0d7de;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #4a6fa5;
+    box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.1);
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 24px 24px;
+    border-top: 1px solid #e8eaf0;
+}
+
+.btn-cancel,
+.btn-save {
+    padding: 8px 20px;
+    border-radius: 40px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-cancel {
+    background: #f0f2f5;
+    border: none;
+    color: #4a5568;
+}
+
+.btn-cancel:hover {
+    background: #e2e6ea;
+}
+
+.btn-save {
+    background: #4a6fa5;
+    border: none;
+    color: white;
+}
+
+.btn-save:hover {
+    background: #3a5a8c;
+    transform: translateY(-1px);
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+    .profile-inner {
+        padding: 20px;
+    }
+    
+    .profile-tabs {
+        gap: 16px;
+        overflow-x: auto;
+    }
+    
+    .tab-item {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .info-row {
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    .info-label {
+        width: auto;
+    }
+}

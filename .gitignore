@@ -32,5 +32,3 @@ archive.zip
 .codspeed
 
 .env
-
-celerybeat-schedule

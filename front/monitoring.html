@@ -4,42 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css" />
-    <link rel="stylesheet" href="./monitor_style.css" />
-    <link rel="stylesheet" href="./card.css" />
+    <link rel="stylesheet" href="./css/style_main.css" />
+    <link rel="stylesheet" href="./css/monitor_style.css" />
+    <link rel="stylesheet" href="./css/card.css" />
     <title>Выгодный взгляд</title>
 </head>
 
 <body data-page="monitor">
+
     <header class="header">
         <div class="header-container">
-            <a class="header_logo">
-                <img class="header_logo-image" src="./images/logo.svg" alt="Логотип проекта">
+            <a href="./index.html" class="header_logo">
+                <img class="header_logo-image" src="./img/logo.svg" alt="Логотип проекта">
             </a>
             <div class="header_content_menu">
                 <nav class="header__menu">
                     <ul class="header__links-list">
                         <li class="header__links-list-item_no-bullit">
-                            <a class="header__link" href="compare.html">Поиск</a>
+                            <a class="header__link" href="./compare.html">Поиск</a>
                         </li>
                         <li class="hader__linkes-list-item">
-                            <a class="header__link_active" href="#">Отслеживание цен</a>
+                            <a class="header__link_active" href="./monitoring.html">Отслеживание цен</a>
                         </li>
                         <li class="hader__linkes-list-item">
-                            <a class="header__link" href="#">История поиска</a>
+                            <a class="header__link" href="./search_history.html">История поиска</a>
                         </li>
                     </ul>
                 </nav>
             </div>
             <div class="user-profile">
-                <img src="./images/message.svg" class="message-icon">
-                <a href="#" class="profile-button">
-                    <img src="./images/search.svg" class="header__search-icon" alt="Икона поиска">
+                <div class="notification-wrapper">
+                    <img src="./img/message.svg" class="message-icon">
+                </div>
+                <a href="./profile.html" class="profile-button">
+                    <img src="./img/search.svg" class="header__search-icon" alt="Икона поиска">
                     <span>Личный кабинет</span>
                 </a>
             </div>
         </div>
     </header>
+
     <main class="main">
         <div class="container">
             <h1 class="main-title">Мониторинг цен</h1>
@@ -47,7 +51,7 @@
 
             <section class="monitoring-list">
                 <article class="monitoring-card">
-                    <img src="./images/product.png" alt="iPhone 15" class="product-img">
+                    <img src="./img/product.png" alt="iPhone 15" class="product-img">
 
                     <div class="product-info">
                         <h3 class="product-name">iPhone 15 128GB черный</h3>
@@ -55,22 +59,33 @@
                     </div>
 
                     <div class="price-setting">
-                        <label class="price-label">
-                            Целевая цена: <span class="price-value">65 000 ₽</span>
-                        </label>
-                        <input type="range" class="price-slider" min="10" max="750000" value="65000">
-                    </div>
-
-                    <div class="notification-settings">
-                        <span class="label">Уведомлять:</span>
-                        <div class="notify-buttons">
-                            <button class="notify-btn active">Выгодный взгляд</button>
-                            <button class="notify-btn">Email</button>
+                        <div class="input_price">
+                            <label class="price-label">
+                                Целевая цена:
+                            </label>
+    
+                            <input type="number" class="target-price-input" placeholder="Введите цену" value="65000">
                         </div>
+
+
+                        <div class="price-buttons">
+
+                            <button class="save-price-btn">
+                                Сохранить
+                            </button>
+
+                            <button class="cancel-price-btn">
+                                Отменить
+                            </button>
+
+                        </div>
+
+                        <p class="notification-info"></p>
+
                     </div>
 
                     <div class="market-info">
-                        <img src="./images/wildberries.png" alt="Wildberries" class="market-logo">
+                        <img src="./img/wildberries.png" alt="Wildberries" class="market-logo">
                         <a href="#" class="details-button" onclick="openModal(); return false;">Подробнее →</a>
                     </div>
 
@@ -82,30 +97,41 @@
                     </div>
                 </article>
                 <article class="monitoring-card">
-                    <img src="./images/product.png" alt="iPhone 15" class="product-img">
+                    <img src="./img/product.png" alt="iPhone 15" class="product-img">
 
                     <div class="product-info">
                         <h3 class="product-name">iPhone 15 128GB черный</h3>
                         <p class="current-price">Текущая цена: <strong>69 990 ₽</strong></p>
                     </div>
 
-                    <div class="price-setting">
-                        <label class="price-label">
-                            Целевая цена: <span class="price-value">65 000 ₽</span>
-                        </label>
-                        <input type="range" class="price-slider" min="10" max="750000" value="65000">
-                    </div>
-
-                    <div class="notification-settings">
-                        <span class="label">Уведомлять:</span>
-                        <div class="notify-buttons">
-                            <button class="notify-btn active">Выгодный взгляд</button>
-                            <button class="notify-btn">Email</button>
+                      <div class="price-setting">
+                        <div class="input_price">
+                            <label class="price-label">
+                                Целевая цена:
+                            </label>
+    
+                            <input type="number" class="target-price-input" placeholder="Введите цену" value="65000">
                         </div>
+
+
+                        <div class="price-buttons">
+
+                            <button class="save-price-btn">
+                                Сохранить
+                            </button>
+
+                            <button class="cancel-price-btn">
+                                Отменить
+                            </button>
+
+                        </div>
+
+                        <p class="notification-info"></p>
+
                     </div>
 
                     <div class="market-info">
-                        <img src="./images/wildberries.png" alt="Wildberries" class="market-logo">
+                        <img src="./img/wildberries.png" alt="Wildberries" class="market-logo">
                         <a href="#" class="details-button" onclick="openModal(); return false;">Подробнее →</a>
                     </div>
 
@@ -117,30 +143,41 @@
                     </div>
                 </article>
                 <article class="monitoring-card">
-                    <img src="./images/product.png" alt="iPhone 15" class="product-img">
+                    <img src="./img/product.png" alt="iPhone 15" class="product-img">
 
                     <div class="product-info">
                         <h3 class="product-name">iPhone 15 128GB черный</h3>
                         <p class="current-price">Текущая цена: <strong>69 990 ₽</strong></p>
                     </div>
 
-                    <div class="price-setting">
-                        <label class="price-label">
-                            Целевая цена: <span class="price-value">65 000 ₽</span>
-                        </label>
-                        <input type="range" class="price-slider" min="10" max="750000" value="65000">
-                    </div>
-
-                    <div class="notification-settings">
-                        <span class="label">Уведомлять:</span>
-                        <div class="notify-buttons">
-                            <button class="notify-btn active">Выгодный взгляд</button>
-                            <button class="notify-btn">Email</button>
+                     <div class="price-setting">
+                        <div class="input_price">
+                            <label class="price-label">
+                                Целевая цена:
+                            </label>
+    
+                            <input type="number" class="target-price-input" placeholder="Введите цену" value="65000">
                         </div>
+
+
+                        <div class="price-buttons">
+
+                            <button class="save-price-btn">
+                                Сохранить
+                            </button>
+
+                            <button class="cancel-price-btn">
+                                Отменить
+                            </button>
+
+                        </div>
+
+                        <p class="notification-info"></p>
+
                     </div>
 
                     <div class="market-info">
-                        <img src="./images/wildberries.png" alt="Wildberries" class="market-logo">
+                        <img src="./img/wildberries.png" alt="Wildberries" class="market-logo">
                         <a href="#" class="details-button" onclick="openModal(); return false;">Подробнее →</a>
                     </div>
 
@@ -159,7 +196,7 @@
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-logo">
-                <img src="./images/logo.svg" alt="Выгодный Взгляд" class="footer-logo-image">
+                <a href="./index.html"><img src="./img/logo.svg" alt="Выгодный Взгляд" class="footer-logo-image"></a>
             </div>
 
             <div class="footer-info">
@@ -183,7 +220,7 @@
             <div class="modal-content">
                 <!-- КОЛОНКА 1: Изображение и Отзывы -->
                 <div class="modal-col-left">
-                    <img src="./images/product.png" alt="iPhone 15" class="modal-product-img">
+                    <img src="./img/product.png" alt="iPhone 15" class="modal-product-img">
 
                     <div class="analysis-reviews">
                         <h3 class="analysis-title">Анализ отзывов</h3>
@@ -226,7 +263,7 @@
                         <div class="seller-line">
                             <span>Продавец:</span>
                             <div class="seller-brand">
-                                <img src="./images/seller.svg" alt="" class="shop-icon" width="20">
+                                <img src="./img/seller.svg" alt="" class="shop-icon" width="20">
                                 <div class="seller-details">
                                     <span class="seller-name">Айстар Бутик</span>
                                     <span class="seller-rating">
@@ -251,9 +288,9 @@
                         <div class="price-summary">
                             <p class="p-old">68 990 ₽</p>
                             <p class="p-delivery">Доставка: 399 р.</p>
-                            <p class="p-total">Итог: 69 389 ₽</p>
+                            <p class="p-total">Текущая цена: 69 389 ₽</p>
                             <div class="market-tag">
-                                <img src="./images/yandex.png" alt="Маркет" width="100" height="30">
+                                <img src="./img/yandex.png" alt="Маркет" width="100" height="30">
                             </div>
                         </div>
                     </div>
@@ -268,8 +305,8 @@
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
-    <script src="script_card.js"></script>
+    <script src="./js/monitoring.js"></script>
+    <script src="./js/script_card.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 

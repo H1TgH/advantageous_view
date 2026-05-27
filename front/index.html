@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выгодный взгляд</title>
+    <link rel="stylesheet" href="./css/style_main.css">
+    <link rel="stylesheet" href="./css/style_index.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-container">
+
+            <!-- ЛОГО -->
+            <a href="./index.html" class="header_logo">
+                <img class="header_logo-image" src="./img/logo.svg" alt="Логотип проекта">
+            </a>
+
+            <!-- НАВИГАЦИЯ -->
+            <div class="header_content_menu">
+                <nav class="header__menu">
+
+                    <ul class="header__links-list">
+
+                        <!-- ПОИСК ВСЕГДА ДОСТУПЕН -->
+                        <li class="header__links-list-item_no-bullit">
+                            <a class="header__link" href="./compare.html">
+                                Поиск
+                            </a>
+                        </li>
+
+                        <!-- ТОЛЬКО ДЛЯ АВТОРИЗОВАННЫХ -->
+                        <li class="header__links-list-item_no-bullit" id="track">
+                            <a class="header__link" href="./monitoring.html">
+                                Отслеживание цен
+                            </a>
+                        </li>
+
+                        <!-- ТОЛЬКО ДЛЯ АВТОРИЗОВАННЫХ -->
+                        <li class="header__links-list-item_no-bullit" id="history">
+                            <a class="header__link" href="./search_history.html">
+                                История поиска
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </nav>
+            </div>
+
+            <!-- ПРАВАЯ ЧАСТЬ -->
+            <div class="user-profile">
+
+                <img src="./img/message.svg" class="message-icon" alt="Сообщения">
+
+                <!--
+                href НЕ нужен!
+                JS сам решит:
+                - input.html
+                - profile.html
+            -->
+                <button class="profile-button" id="userAuthButton" type="button">
+                    <img src="./img/input.png" class="header__search-icon" alt="Профиль">
+
+                    <span>Войти</span>
+                </button>
+
+            </div>
+
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container" style="display: flex; justify-content: space-between; padding: 0px;min-height: 90vh;">
+            <div class="hero-content">
+                <h1>Найдём лучшее предложение для вас</h1>
+                <p>Сравниваем цены, доставку и продавцов на 3 площадках за секунды</p>
+                <div class="search-block">
+                    <!-- Строка поиска с кнопкой Найти -->
+                    <div class="search-wrapper">
+                        <div class="search-icon">
+                            <img src="./img/input-black.png" style="height: 40px; width: 40px;">
+                        </div>
+                        <input type="text" class="search-input" id="searchInput" placeholder="iPhone 15 128GB черный"
+                            autocomplete="off">
+                        <button class="search-btn" id="searchBtn">Найти</button>
+                    </div>
+
+                    <!-- Популярные запросы -->
+                    <div class="popular-section">
+                        <div class="popular-title">Популярные запросы:</div>
+                        <div class="chips" id="chipsContainer">
+                            <span class="chip" data-query="ноутбук Xiaomi">ноутбук Xiaomi</span>
+                            <span class="chip" data-query="кроссовки Nike Air Force">кроссовки Nike Air Force</span>
+                            <span class="chip" data-query="Наушники Sony WH-1000XMS">Наушники Sony WH-1000XMS</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="img-search">
+                    <div class="yandex">
+                        <img src="./img/yandex.png" style="width: 230px; height: 45px;">
+                    </div>
+                    <div>
+                        <img src="./img/wb.png" style="width: 250px; height: 75px;">
+                    </div>
+                    <div class="ozon">
+                        <img src="./img/ozon.png" style="width: 145px; height: 35px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="services">
+        <div class="container">
+            <div style="text-align: center;">
+                <img src="./img/skills.png" style="width: 100%;">
+            </div>
+            <h3>КАК ЭТО РАБОТАЕТ?</h3>
+            <div class="service-grid">
+                <div class="service-card">
+                    <div class="icon">
+                        <h3>1. Интеллектуальный поисковый и агрегирующий движок:</h3>
+                    </div>
+                    <div class="text-card">
+                        <p style="padding-bottom: 15px;"><strong>* Кросс-платформенный поиск:</strong> Описание, список
+                            маркетплейсов.</p>
+                        <p><strong>* Глубокая аналитика внутри платформы:</strong> Описание анализа цен, сроков,
+                            комплектаций, рейтингов, отзывов</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="icon">
+                        <h3>2. Персонализированная система сравнения и рекомендаций:</h3>
+                    </div>
+                    <div class="text-card">
+                        <p style="padding-bottom: 15px;"><strong>* Профиль предпочтений:</strong> Возможность настроить
+                            весовые коэффициенты по цене, скорости и надежности.</p>
+                        <p><strong>* Умный алгоритм оценки:</strong> Рекомендация наиболее подходящего товара по
+                            выбранной фильтрации.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="icon">
+                        <h3>3. Функции мониторинга и удобства:</h3>
+                    </div>
+                    <div class="text-card">
+                        <p style="padding-bottom: 15px;"><strong>* Отслеживание динамики цен, подписка на
+                                уведомления.</strong></p>
+                        <p><strong>* История поисков и сравнений.</strong></p>
+                        <p><strong>* Прямые переходы на маркетплейсы.</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="ctasection">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Войдите или зарегистрируйтесь, чтобы получить возможность персонализировать систему, мониторить
+                    цены, просматривать историю поисков и много другое.</h2>
+                <div style="text-align: center;">
+                    <a href="./input.html"> <button class="cta-button">Войти</button></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <a href="./index.html"><img src="./img/logo.svg" alt="Выгодный Взгляд" class="footer-logo-image"></a>
+            </div>
+
+            <div class="footer-info">
+                <p class="footer-text">
+                    «Выгодный Взгляд» трансформирует хаотичный процесс поиска в управляемый,
+                    основанный на данных выбор, где решение принимается не на эмоциях или случайности,
+                    а на четкой логике, соответствующей вашим личным критериям. Это дает пользователю
+                    чувство контроля, уверенности и реальную экономию ресурсов.
+                </p>
+            </div>
+
+            <div class="footer-contacts">
+                <a href="tel:+79999999999" class="footer-phone">+7 999 999 99 99</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/auth.js"></script>
+    <script src="./js/index-search.js"></script>
+</body>
+
+</html>

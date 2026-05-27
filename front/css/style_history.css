@@ -1,0 +1,162 @@
+/* Hero секция */
+.hero {
+    text-align: center;
+    height: max-content;
+}
+
+.hero-content{
+    margin: auto;
+    width: 70%;
+    margin-bottom: 20%;
+}
+
+.history-h1 {
+    color:#000;
+    display: flex;
+    gap: 1%;
+    align-items: center;
+    margin-top: 8%;
+    margin-bottom: 4%;
+}
+
+.history-h1 img{
+    width: 40px;
+    height: 40px;
+}
+
+.history-h1 h1{
+    font-size: 40px;
+}
+
+#historyList{
+    width: 85%;
+    margin: auto;
+}
+
+.history-item{
+    border: 1px solid #C8C8C8;
+    border-radius: 20px;
+    padding: 30px;
+    margin: auto;
+    display: flex;
+    justify-content:space-between;
+}
+
+.history-query {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-align: start;
+}
+
+.history-query img{
+    width: 40px;
+    height: 40px;
+}
+
+.query-text {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.history-info{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.repeat-search-btn{
+    background: #0651CE;
+    border: none;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.repeat-search-btn:hover {
+    background: #005fc1;
+    transform: scale(0.98);
+}
+
+.history-actions{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.delete-item-btn img{
+    width: 35px;
+    height: 35px;
+}
+
+.delete-item-btn {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    background-color: #FFF;
+}
+
+.empty-history{
+    margin: auto;
+    font-size: 24px;
+    color: #000;
+}
+
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .header .container {
+        gap: 1rem;
+    }
+
+    .header img {
+        display: none;
+    }
+
+    .nav ul {
+        gap: 1rem;
+    }
+
+    .header a {
+        font-size: 18px;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .service-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .process h2 {
+        font-size: 2rem;
+    }
+
+    /* Скрытие изображений на планшетах */
+    .img-search,
+    .services > .container > div:first-child {
+        display: none;
+    }
+
+    .footer p {
+        display: none;
+    }
+}
+@media (max-width: 480px) {
+    .nav a {
+        font-size: 14px;
+    }
+
+    .img-search,
+    .services > .container > div:first-child {
+        display: none;
+    }
+}
