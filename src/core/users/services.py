@@ -23,6 +23,7 @@ from core.users.exceptions import (
 )
 from infrastructure.database.repositories.users import UserRepository
 from infrastructure.database.repositories.user_notification_settings import UserNotificationSettingsRepository
+from infrastructure.database.repositories.price_tracking import PriceTrackingRepository
 from infrastructure.database.uow import UnitOfWork
 from settings import settings
 
@@ -181,6 +182,7 @@ class UserService:
     ) -> UserNotificationSettingsDTO:
         async with self.uow() as session:
             repo = UserNotificationSettingsRepository(session)
+            tracking_repo = PriceTrackingRepository(session)
             data = UserNotificationSettingsDTO(
                 user_id=user_id,
                 notifications_enabled=dto.notifications_enabled,
@@ -189,7 +191,15 @@ class UserService:
                 notify_in_app=dto.notify_in_app,
                 notify_email=dto.notify_email,
             )
-            return await repo.upsert(data)
+            saved = await repo.upsert(data)
+            final_notify_in_app = saved.notifications_enabled and saved.subscription_price_changes and saved.notify_in_app
+            final_notify_email = saved.notifications_enabled and saved.subscription_price_changes and saved.notify_email
+            await tracking_repo.bulk_set_notifications_for_user(
+                user_id=user_id,
+                notify_in_app=final_notify_in_app,
+                notify_email=final_notify_email,
+            )
+            return saved
 
     @staticmethod
     async def _get_by_id_or_raise(repo: UserRepository, user_id: UUID) -> UserModelDTO:

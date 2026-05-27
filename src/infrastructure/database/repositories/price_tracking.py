@@ -143,6 +143,20 @@ class PriceTrackingRepository:
         rows = result.all()
         return [(self._sub_to_dto(row[0]), row[0].user_id, row[1]) for row in rows]
 
+    async def bulk_set_notifications_for_user(
+        self,
+        user_id: UUID,
+        notify_in_app: bool,
+        notify_email: bool,
+    ) -> None:
+        stmt = select(PriceSubscriptionModel).where(PriceSubscriptionModel.user_id == user_id)
+        result = await self.session.execute(stmt)
+        models = result.scalars().all()
+        for model in models:
+            model.notify_in_app = notify_in_app
+            model.notify_email = notify_email
+        await self.session.flush()
+
     @staticmethod
     def _sub_to_dto(model: PriceSubscriptionModel) -> PriceSubscriptionDTO:
         return PriceSubscriptionDTO(
