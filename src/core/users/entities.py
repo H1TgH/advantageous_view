@@ -69,3 +69,13 @@ class LoginTokensDTO:
 @dataclass
 class AuthUserDTO:
     id: UUID
+
+
+@dataclass
+class UserNotificationSettingsDTO:
+    user_id: UUID
+    notifications_enabled: bool
+    subscription_price_changes: bool
+    subscription_new_features: bool
+    notify_in_app: bool
+    notify_email: bool

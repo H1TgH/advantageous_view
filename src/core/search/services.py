@@ -36,16 +36,16 @@ class SearchService:
         self._feedback_service = feedback_service
 
     async def search(self, query: str, user_id: UUID | None = None) -> list[ProductDTO]:
-        # wb_products = await self._safe_search(self._wb, query, "wb")
-        # ym_products = []
+        wb_products = await self._safe_search(self._wb, query, "wb")
+        ym_products = []
 
-        wb_task = asyncio.create_task(
-            self._safe_search(self._wb, query, "wb")
-        )
-        ym_task = asyncio.create_task(
-            self._safe_search(self._ym, query, "ym")
-        )
-        wb_products, ym_products = await asyncio.gather(wb_task, ym_task)
+        # wb_task = asyncio.create_task(
+        #     self._safe_search(self._wb, query, "wb")
+        # )
+        # ym_task = asyncio.create_task(
+        #     self._safe_search(self._ym, query, "ym")
+        # )
+        # wb_products, ym_products = await asyncio.gather(wb_task, ym_task)
 
         products = [*wb_products, *ym_products]
 

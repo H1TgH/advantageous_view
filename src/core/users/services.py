@@ -12,6 +12,7 @@ from core.users.entities import (
     UserCreationDTO,
     UserLoginDTO,
     UserModelDTO,
+    UserNotificationSettingsDTO,
     UserReadDTO,
 )
 from core.users.exceptions import (
@@ -21,6 +22,7 @@ from core.users.exceptions import (
     UserDoesNotExistException,
 )
 from infrastructure.database.repositories.users import UserRepository
+from infrastructure.database.repositories.user_notification_settings import UserNotificationSettingsRepository
 from infrastructure.database.uow import UnitOfWork
 from settings import settings
 
@@ -156,6 +158,38 @@ class UserService:
             if not user:
                 raise UserDoesNotExistException("User does not exist")
             return UserReadDTO(id=user.id, name=user.name, email=user.email)
+
+    async def get_notification_settings(self, user_id: UUID) -> UserNotificationSettingsDTO:
+        async with self.uow() as session:
+            repo = UserNotificationSettingsRepository(session)
+            settings_data = await repo.get_by_user_id(user_id)
+            if settings_data:
+                return settings_data
+            return UserNotificationSettingsDTO(
+                user_id=user_id,
+                notifications_enabled=True,
+                subscription_price_changes=True,
+                subscription_new_features=True,
+                notify_in_app=True,
+                notify_email=False,
+            )
+
+    async def update_notification_settings(
+        self,
+        user_id: UUID,
+        dto: UserNotificationSettingsDTO,
+    ) -> UserNotificationSettingsDTO:
+        async with self.uow() as session:
+            repo = UserNotificationSettingsRepository(session)
+            data = UserNotificationSettingsDTO(
+                user_id=user_id,
+                notifications_enabled=dto.notifications_enabled,
+                subscription_price_changes=dto.subscription_price_changes,
+                subscription_new_features=dto.subscription_new_features,
+                notify_in_app=dto.notify_in_app,
+                notify_email=dto.notify_email,
+            )
+            return await repo.upsert(data)
 
     @staticmethod
     async def _get_by_id_or_raise(repo: UserRepository, user_id: UUID) -> UserModelDTO:

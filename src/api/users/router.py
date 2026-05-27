@@ -6,9 +6,11 @@ from api.users.schemas import (
     RegistrationSchema,
     TokenSchema,
     UpdateMeSchema,
+    UpdateUserNotificationSettingsSchema,
+    UserNotificationSettingsSchema,
     UserMeSchema,
 )
-from core.users.entities import AuthUserDTO, UpdateUserDTO, UserCreationDTO, UserLoginDTO
+from core.users.entities import AuthUserDTO, UpdateUserDTO, UserCreationDTO, UserLoginDTO, UserNotificationSettingsDTO
 from core.users.services import UserService, get_user_service
 from dependencies import get_current_user
 
@@ -90,3 +92,31 @@ async def update_me(
 ) -> UserMeSchema:
     user = await service.update_me(current_user.id, UpdateUserDTO(**data.model_dump()))
     return UserMeSchema(**vars(user))
+
+
+@users_router.get(
+    "/me/notification-settings",
+    status_code=status.HTTP_200_OK,
+    response_model=UserNotificationSettingsSchema,
+)
+async def get_notification_settings(
+    current_user: AuthUserDTO = Depends(get_current_user),
+    service: UserService = Depends(get_user_service),
+) -> UserNotificationSettingsSchema:
+    settings_data = await service.get_notification_settings(current_user.id)
+    return UserNotificationSettingsSchema(**vars(settings_data))
+
+
+@users_router.patch(
+    "/me/notification-settings",
+    status_code=status.HTTP_200_OK,
+    response_model=UserNotificationSettingsSchema,
+)
+async def update_notification_settings(
+    data: UpdateUserNotificationSettingsSchema,
+    current_user: AuthUserDTO = Depends(get_current_user),
+    service: UserService = Depends(get_user_service),
+) -> UserNotificationSettingsSchema:
+    dto = UserNotificationSettingsDTO(user_id=current_user.id, **data.model_dump())
+    settings_data = await service.update_notification_settings(current_user.id, dto)
+    return UserNotificationSettingsSchema(**vars(settings_data))

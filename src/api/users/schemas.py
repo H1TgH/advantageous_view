@@ -32,3 +32,15 @@ class UserMeSchema(BaseModel):
 class UpdateMeSchema(BaseModel):
     name: str
     email: EmailStr
+
+
+class UserNotificationSettingsSchema(BaseModel):
+    notifications_enabled: bool
+    subscription_price_changes: bool
+    subscription_new_features: bool
+    notify_in_app: bool
+    notify_email: bool
+
+
+class UpdateUserNotificationSettingsSchema(UserNotificationSettingsSchema):
+    pass
